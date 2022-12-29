@@ -19,9 +19,23 @@ const LoginNavbar = () => (
                 >
                     <AccountBalanceIcon />
                 </IconButton>
-                <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                    Bank App
-                </Typography>
+                <Typography
+                        variant="h6"
+                        noWrap
+                        component="a"
+                        href="/"
+                        sx={{
+                            mr: 2,
+                            display: { xs: 'none', md: 'flex' },
+                            fontFamily: 'monospace',
+                            fontWeight: 700,
+                            letterSpacing: '.3rem',
+                            color: 'inherit',
+                            textDecoration: 'none',
+                        }}
+                    >
+                        BANK APP
+                    </Typography>
             </Toolbar>
         </AppBar>
     </Box>

@@ -1,7 +1,7 @@
 import React from 'react';
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
-import LoginNavbar from '../components/LoginNavbar';
+import LoginNavbar from '../components/Commons/LoginNavbar';
 import { Fragment } from 'react';
 import { Typography } from '@mui/material';
 import TextField from "@material-ui/core/TextField";
