@@ -1,10 +1,10 @@
-import * as React from 'react';
+import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
+import IconButton from '@mui/material/IconButton';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
-import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
+import * as React from 'react';
 
 const LoginNavbar = () => (
     <Box sx={{ flexGrow: 1 }}>

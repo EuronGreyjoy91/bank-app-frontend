@@ -1,11 +1,11 @@
-import * as React from 'react';
 import Box from '@mui/material/Box';
-import { DataGrid } from '@mui/x-data-grid';
 import Grid from '@mui/material/Grid';
-import { useState, useEffect } from 'react'
+import { DataGrid } from '@mui/x-data-grid';
 import axios from 'axios';
-import { GET_ACCOUNTS_URL } from '../../Commons';
 import moment from 'moment';
+import * as React from 'react';
+import { useEffect, useState } from 'react';
+import { GET_ACCOUNTS_URL } from '../../Commons';
 
 const columns = [
     {

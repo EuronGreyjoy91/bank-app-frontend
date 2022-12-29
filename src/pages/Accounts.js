@@ -1,15 +1,14 @@
-import React from 'react';
-import { Fragment } from 'react';
-import AdminNavbar from '../components/Admin/AdminNavbar';
+import Button from "@material-ui/core/Button";
+import AddIcon from '@mui/icons-material/Add';
+import { Typography } from '@mui/material';
+import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
+import React, { Fragment } from 'react';
+import { Link } from 'react-router-dom';
 import AccountsSearchBox from '../components/Admin/AccountsSearchBox';
 import AccountsTable from '../components/Admin/AccountsTable';
-import Grid from '@mui/material/Grid';
-import Container from '@mui/material/Container';
-import { Typography } from '@mui/material';
-import Button from "@material-ui/core/Button";
-import Box from '@mui/material/Box';
-import AddIcon from '@mui/icons-material/Add';
-import { Link } from 'react-router-dom';
+import AdminNavbar from '../components/Admin/AdminNavbar';
 
 const Accounts = () => (
     <Fragment>

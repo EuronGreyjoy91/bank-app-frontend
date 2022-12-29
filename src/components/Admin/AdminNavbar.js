@@ -10,6 +10,8 @@ import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+import SavingsIcon from '@mui/icons-material/Savings';
 import { Link } from 'react-router-dom';
 
 function AdminNavbar() {
@@ -51,7 +53,7 @@ function AdminNavbar() {
                             textDecoration: 'none',
                         }}
                     >
-                        BANK APP
+                        BANK APP |
                     </Typography>
 
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -117,7 +119,8 @@ function AdminNavbar() {
                             onClick={handleCloseNavMenu}
                             sx={{ my: 2, color: 'white', display: 'block' }}
                         >
-                            Cuentas
+                            Cuentas&nbsp;
+                            <SavingsIcon style={{verticalAlign:"middle"}}></SavingsIcon>
                         </Button>
                         <Button
                             component={Link} to="/clientes"
@@ -125,7 +128,8 @@ function AdminNavbar() {
                             onClick={handleCloseNavMenu}
                             sx={{ my: 2, color: 'white', display: 'block' }}
                         >
-                            Clientes
+                            Clientes&nbsp;
+                            <ManageAccountsIcon style={{verticalAlign:"middle"}}></ManageAccountsIcon>
                         </Button>
                     </Box>
                 </Toolbar>

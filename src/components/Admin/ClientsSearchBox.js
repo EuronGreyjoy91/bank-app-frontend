@@ -1,9 +1,9 @@
-import * as React from 'react';
-import { Fragment } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
-import Grid from '@mui/material/Grid'
+import * as React from 'react';
+import { Fragment } from 'react';
 
 function ClientsSearchBox() {
     return (
