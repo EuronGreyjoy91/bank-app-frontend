@@ -5,6 +5,7 @@ import Clients from './pages/Clients';
 import Home from './pages/Home';
 import NewAccount from './pages/NewAccount';
 import NewClient from './pages/NewClient';
+import NewUser from './pages/NewUser';
 import PageNotFound from './pages/PageNotFound.js';
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
                 <Route path="/cuentas/nueva" element={<NewAccount />} />
                 <Route path="/clientes" element={<Clients />} />
                 <Route path="/clientes/nuevo" element={<NewClient />} />
+                <Route path="/usuarios/nuevo" element={<NewUser />} />
                 <Route path="*" element={<PageNotFound />} />
             </Routes>
         </BrowserRouter>

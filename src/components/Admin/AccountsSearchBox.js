@@ -5,7 +5,7 @@ import TextField from '@mui/material/TextField';
 import * as React from 'react';
 import { Fragment } from 'react';
 
-export default function AccountsSearchBox() {
+function AccountsSearchBox() {
     return (
         <Fragment>
             <Grid container spacing={2} alignItems="center">
@@ -37,3 +37,5 @@ export default function AccountsSearchBox() {
         </Fragment>
     );
 }
+
+export default AccountsSearchBox;

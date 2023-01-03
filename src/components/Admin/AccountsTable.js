@@ -5,7 +5,7 @@ import axios from 'axios';
 import moment from 'moment';
 import * as React from 'react';
 import { useEffect, useState } from 'react';
-import { GET_ACCOUNTS_URL } from '../../Commons';
+import { BASE_ACCOUNTS_URL } from '../../Commons';
 
 const columns = [
     {
@@ -62,7 +62,7 @@ function AccountsTable() {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        axios(GET_ACCOUNTS_URL)
+        axios(BASE_ACCOUNTS_URL)
             .then((response) => {
                 setAccounts(response.data);
                 setError(null);

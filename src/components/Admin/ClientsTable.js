@@ -5,7 +5,7 @@ import axios from 'axios';
 import moment from 'moment';
 import * as React from 'react';
 import { useEffect, useState } from 'react';
-import { GET_CLIENTS_URL } from '../../Commons';
+import { BASE_CLIENTS_URL } from '../../Commons';
 
 const columns = [
     {
@@ -59,7 +59,7 @@ function ClientsTable() {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        axios(GET_CLIENTS_URL)
+        axios(BASE_CLIENTS_URL)
             .then((response) => {
                 console.log(response.data);
                 setClients(response.data);

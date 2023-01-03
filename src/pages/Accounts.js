@@ -9,10 +9,17 @@ import { Link } from 'react-router-dom';
 import AccountsSearchBox from '../components/Admin/AccountsSearchBox';
 import AccountsTable from '../components/Admin/AccountsTable';
 import AdminNavbar from '../components/Admin/AdminNavbar';
+import { useSearchParams } from "react-router-dom";
+import AlertWithTimer from "../components/Commons/AlertWithTimer";
 
-const Accounts = () => (
-    <Fragment>
+function Accounts() {
+    const [searchParams] = useSearchParams();
+
+    return <Fragment>
         <AdminNavbar></AdminNavbar>
+        {
+            searchParams.get('alertStatus') && <AlertWithTimer severity={searchParams.get('alertStatus')}></AlertWithTimer>
+        }
         <Container maxWidth={false}>
             <Grid container spacing={2} alignItems="center">
                 <Grid style={{ paddingTop: "40px" }} item xs={8}>
@@ -33,6 +40,6 @@ const Accounts = () => (
             <AccountsTable></AccountsTable>
         </Container>
     </Fragment>
-);
+};
 
 export default Accounts;
