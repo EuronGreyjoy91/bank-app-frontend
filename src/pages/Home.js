@@ -4,13 +4,20 @@ import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
-import React, { Fragment } from 'react';
-import LoginNavbar from '../components/Commons/LoginNavbar';
 import Link from '@mui/material/Link';
+import React, { Fragment } from 'react';
+import { useSearchParams } from "react-router-dom";
+import AlertWithTimer from '../components/Commons/AlertWithTimer';
+import LoginNavbar from '../components/Commons/LoginNavbar';
 
-const Home = () => (
-    <Fragment>
+const Home = () => {
+    const [searchParams] = useSearchParams();
+
+    return <Fragment>
         <LoginNavbar />
+        {
+            searchParams.get('alertStatus') && <AlertWithTimer severity={searchParams.get('alertStatus')} message={'Usuario creado con exito!'}></AlertWithTimer>
+        }
         <Container>
             <Grid container spacing={2} alignItems="center">
                 <Grid style={{ paddingTop: "40px" }} item xs={12}>
@@ -66,6 +73,6 @@ const Home = () => (
             </Grid>
         </Container>
     </Fragment>
-);
+};
 
 export default Home;

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Alert from '@mui/material/Alert';
 
-function AlertWithTimer({severity}) {
+function AlertWithTimer({severity, message}) {
     const [alert, setAlert] = useState(true);
 
     useEffect(() => {
@@ -10,7 +10,7 @@ function AlertWithTimer({severity}) {
         }, 5000);
     }, []);
 
-    return alert && <Alert severity={severity}>Cuenta guardada con exito!</Alert>
+    return alert && <Alert severity={severity}>{message}</Alert>
 };
 
 export default AlertWithTimer;
