@@ -8,7 +8,6 @@ import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import AdminNavbar from '../components/Admin/AdminNavbar';
 import ClientsSearchBox from '../components/Admin/ClientsSearchBox';
-import ClientsTable from '../components/Admin/ClientsTable';
 
 const Clients = () => (
     <Fragment>
@@ -30,8 +29,6 @@ const Clients = () => (
             </Grid>
             <br></br>
             <ClientsSearchBox></ClientsSearchBox>
-            <br></br>
-            <ClientsTable></ClientsTable>
         </Container>
     </Fragment>
 );

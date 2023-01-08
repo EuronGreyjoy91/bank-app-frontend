@@ -1,11 +1,8 @@
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { DataGrid } from '@mui/x-data-grid';
-import axios from 'axios';
 import moment from 'moment';
 import * as React from 'react';
-import { useEffect, useState } from 'react';
-import { BASE_CLIENTS_URL } from '../../Commons';
 
 const columns = [
     {
@@ -18,7 +15,7 @@ const columns = [
         headerName: 'Tipo de cliente',
         flex: 0.5,
         valueGetter: (params) => {
-            return params.getValue(params.id, "clientType").description;
+            return params.row.clientType.description;
         }
     },
     {
@@ -53,20 +50,7 @@ const columns = [
     },
 ];
 
-function ClientsTable() {
-
-    const [clients, setClients] = useState([]);
-    const [error, setError] = useState(null);
-
-    useEffect(() => {
-        axios(BASE_CLIENTS_URL)
-            .then((response) => {
-                setClients(response.data);
-                setError(null);
-            })
-            .catch(setError);
-    }, []);
-
+function ClientsTable({ clients }) {
     return (
         <Grid container spacing={2} alignItems="center">
             <Grid style={{ paddingTop: "40px" }} item xs={12}>

@@ -35,7 +35,6 @@ function Accounts() {
                 </Grid>
             </Grid>
             <AccountsSearchBox></AccountsSearchBox>
-            <br></br>
         </Container>
     </Fragment>
 };
