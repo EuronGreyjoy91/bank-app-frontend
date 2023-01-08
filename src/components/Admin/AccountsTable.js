@@ -1,11 +1,8 @@
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { DataGrid } from '@mui/x-data-grid';
-import axios from 'axios';
 import moment from 'moment';
 import * as React from 'react';
-import { useEffect, useState } from 'react';
-import { BASE_ACCOUNTS_URL } from '../../Commons';
 
 const columns = [
     {
@@ -18,7 +15,7 @@ const columns = [
         headerName: 'Tipo de cuenta',
         flex: 0.5,
         valueGetter: (params) => {
-            return params.getValue(params.id, "accountType").description;
+            return params.row.accountType.description;
         }
     },
     {
@@ -26,7 +23,7 @@ const columns = [
         headerName: 'Cliente',
         flex: 1,
         valueGetter: (params) => {
-            return params.getValue(params.id, "client").name;
+            return `${params.row.client.name} ${params.row.client.lastName}`;
         }
     },
     {
@@ -56,20 +53,7 @@ const columns = [
     },
 ];
 
-function AccountsTable() {
-
-    const [accounts, setAccounts] = useState([]);
-    const [error, setError] = useState(null);
-
-    useEffect(() => {
-        axios(BASE_ACCOUNTS_URL)
-            .then((response) => {
-                setAccounts(response.data);
-                setError(null);
-            })
-            .catch(setError);
-    }, []);
-
+function AccountsTable({ accounts }) {
     return (
         <Grid container spacing={2} alignItems="center">
             <Grid style={{ paddingTop: "40px" }} item xs={12}>

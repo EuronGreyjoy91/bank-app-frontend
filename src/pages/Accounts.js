@@ -7,7 +7,6 @@ import Grid from '@mui/material/Grid';
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import AccountsSearchBox from '../components/Admin/AccountsSearchBox';
-import AccountsTable from '../components/Admin/AccountsTable';
 import AdminNavbar from '../components/Admin/AdminNavbar';
 import { useSearchParams } from "react-router-dom";
 import AlertWithTimer from "../components/Commons/AlertWithTimer";
@@ -37,7 +36,6 @@ function Accounts() {
             </Grid>
             <AccountsSearchBox></AccountsSearchBox>
             <br></br>
-            <AccountsTable></AccountsTable>
         </Container>
     </Fragment>
 };

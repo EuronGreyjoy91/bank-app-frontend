@@ -12,4 +12,14 @@ export const ADMIN_USER_TYPE_DESCRIPTION = 'Admin';
 export const CLIENT_USER_TYPE_DESCRIPTION = 'Cliente';
 
 //ERROR CODES
-export const REPEATED_ERROR = {status: 400, code: 'REPEATED_ERROR'};
+export const REPEATED_ERROR = { status: 400, code: 'REPEATED_ERROR' };
+
+//FILTERS NAME
+export const ACCOUNT_TYPE_ID_FILTER = 'accountTypeId';
+export const ALIAS_FILTER = "alias";
+export const ACCOUNT_NUMBER_FILTER = "accountNumber";
+
+//UTILS
+export function objectsToUrlParamsString(objects) {
+    return objects.map((object) => `${object.name}=${object.value}`).join('&');
+}

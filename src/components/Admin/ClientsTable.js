@@ -61,7 +61,6 @@ function ClientsTable() {
     useEffect(() => {
         axios(BASE_CLIENTS_URL)
             .then((response) => {
-                console.log(response.data);
                 setClients(response.data);
                 setError(null);
             })
