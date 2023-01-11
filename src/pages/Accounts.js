@@ -17,7 +17,7 @@ function Accounts() {
     return <Fragment>
         <AdminNavbar></AdminNavbar>
         {
-            searchParams.get('alertStatus') && <AlertWithTimer severity={searchParams.get('alertStatus')} message = {'Cuenta guardada con exito!'}></AlertWithTimer>
+            searchParams.get('alertStatus') && <AlertWithTimer severity={searchParams.get('alertStatus')} message = {searchParams.get('message')}></AlertWithTimer>
         }
         <Container maxWidth={false}>
             <Grid container spacing={2} alignItems="center">

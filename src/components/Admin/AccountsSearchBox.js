@@ -14,7 +14,6 @@ import React, { Fragment, useEffect, useState } from 'react';
 import { BASE_ACCOUNT_TYPES_URL, ACCOUNT_TYPE_ID_FILTER, ALIAS_FILTER, ACCOUNT_NUMBER_FILTER, BASE_ACCOUNTS_URL, objectsToUrlParamsString } from '../../Commons';
 
 function AccountsSearchBox() {
-
     const [accountTypes, setAccountTypes] = useState([]);
     const [accounts, setAccounts] = useState([]);
     const [error, setError] = useState(null);

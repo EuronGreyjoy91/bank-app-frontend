@@ -15,6 +15,7 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/cuentas" element={<Accounts />} />
                 <Route path="/cuentas/nueva" element={<NewAccount />} />
+                <Route path="/cuentas/:accountId/editar" element={<NewAccount />} />
                 <Route path="/clientes" element={<Clients />} />
                 <Route path="/clientes/nuevo" element={<NewClient />} />
                 <Route path="/usuarios/nuevo" element={<NewUser />} />
