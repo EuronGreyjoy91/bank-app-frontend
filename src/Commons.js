@@ -18,12 +18,14 @@ export const REPEATED_ERROR = { status: 400, code: 'REPEATED_ERROR' };
 export const NOT_FOUND_ERROR = { status: 404, code: 'NOT_FOUND_ERROR' }
 
 //FILTERS NAME
-export const ACCOUNT_TYPE_ID_FILTER = 'accountTypeId';
+export const ACCOUNT_TYPE_ID_FILTER = "accountTypeId";
 export const ALIAS_FILTER = "alias";
 export const ACCOUNT_NUMBER_FILTER = "accountNumber";
 export const CLIENT_TYPE_ID_FILTER = "clientTypeId";
 export const CUIT_CUIL_FILTER = "cuitCuil";
 export const DOCUMENT_FILTER = "document";
+export const USER_TYPE_ID_FILTER = "userTypeId";
+export const USERNAME_FILTER = "userName";
 
 //UTILS
 export function objectsToUrlParamsString(objects) {

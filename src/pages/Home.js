@@ -57,17 +57,10 @@ const Home = () => {
                     </Box>
                 </Grid>
             </Grid>
-            <Grid style={{ paddingTop: "40px" }} container spacing={2} justifyContent="center" >
-                <Grid item xs={12} md={6}>
-                    <Box textAlign='center'>
-                        <Link href="#">¿Olvidaste tu contraseña?</Link>
-                    </Box>
-                </Grid>
-            </Grid>
             <Grid style={{ paddingTop: "20px" }} container spacing={2} justifyContent="center" >
                 <Grid item xs={12} md={6}>
                     <Box textAlign='center'>
-                        ¿No tenes usuario? <Link href="/usuarios/nuevo">Registrate!</Link>
+                        ¿No tenes usuario? <Link href="/login/usuarios/nuevo">Registrate!</Link>
                     </Box>
                 </Grid>
             </Grid>

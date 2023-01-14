@@ -1,23 +1,22 @@
-import CheckBoxIcon from '@mui/icons-material/CheckBox';
-import DisabledByDefaultIcon from '@mui/icons-material/DisabledByDefault';
-import EditIcon from '@mui/icons-material/Edit';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import IconButton from '@mui/material/IconButton';
-import Tooltip from '@mui/material/Tooltip';
 import { DataGrid } from '@mui/x-data-grid';
 import axios from 'axios';
-import moment from 'moment';
-import * as React from 'react';
 import { Fragment } from 'react';
-import { BASE_ACCOUNTS_URL } from '../../Commons';
+import moment from 'moment';
+import IconButton from '@mui/material/IconButton';
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import DisabledByDefaultIcon from '@mui/icons-material/DisabledByDefault';
+import Tooltip from '@mui/material/Tooltip';
+import * as React from 'react';
+import { BASE_USERS_URL } from '../../Commons';
 
 const patchAccount = (account) => {
     axios
-        .patch(`${BASE_ACCOUNTS_URL}/${account.accountId}`, account)
+        .patch(`${BASE_USERS_URL}/${account.accountId}`, account)
         .then((response) => {
             if (response.status === 200) {
-                window.location.replace("/cuentas?alertStatus=success&message=Cuenta modificada con exito");
+                window.location.replace("/usuarios?alertStatus=success&message=Usuario modificado con exito");
             }
         });
 }
@@ -36,17 +35,6 @@ const renderActionsButton = (params) => {
                     {params.row.enable ? <DisabledByDefaultIcon /> : <CheckBoxIcon />}
                 </IconButton>
             </Tooltip>
-            <Tooltip title="Editar">
-                <IconButton
-                    variant="contained"
-                    color="primary"
-                    onClick={() => {
-                        window.location.replace(`/cuentas/${params.row._id}/editar`);
-                    }}
-                >
-                    <EditIcon />
-                </IconButton>
-            </Tooltip>
         </Fragment>
     )
 }
@@ -59,19 +47,17 @@ const columns = [
     },
     {
         field: 'description',
-        headerName: 'Tipo de cuenta',
+        headerName: 'Tipo de usuario',
         flex: 0.5,
         valueGetter: (params) => {
-            return params.row.accountType.description;
+            return params.row.userType.description;
         }
     },
     {
-        field: 'name',
-        headerName: 'Cliente',
+        field: 'userName',
+        headerName: 'Usuario',
         flex: 1,
-        valueGetter: (params) => {
-            return `${params.row.client.name} ${params.row.client.lastName}`;
-        }
+        valueGetter: (params) => `${params.row.userName}`
     },
     {
         field: 'creationDate',
@@ -80,19 +66,8 @@ const columns = [
         valueFormatter: params => moment(params?.value).format("DD/MM/YYYY HH:mm"),
     },
     {
-        field: 'alias',
-        headerName: 'Alias',
-        flex: 1,
-    },
-    {
-        field: 'number',
-        headerName: 'Numero',
-        type: 'number',
-        flex: 1,
-    },
-    {
         field: 'enable',
-        headerName: 'Activa?',
+        headerName: 'Activo?',
         description: 'This column has a value getter and is not sortable.',
         type: 'boolean',
         sortable: true,
@@ -108,13 +83,13 @@ const columns = [
     },
 ];
 
-function AccountsTable({ accounts }) {
+function UsersTable({ users }) {
     return (
         <Grid container spacing={2} alignItems="center">
             <Grid style={{ paddingTop: "40px" }} item xs={12}>
                 <Box sx={{ height: 400, width: '100%' }}>
                     <DataGrid
-                        rows={accounts}
+                        rows={users}
                         columns={columns}
                         pageSize={10}
                         rowsPerPageOptions={[10]}
@@ -129,4 +104,4 @@ function AccountsTable({ accounts }) {
     );
 }
 
-export default AccountsTable;
+export default UsersTable;

@@ -11,6 +11,7 @@ import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+import FaceIcon from '@mui/icons-material/Face';
 import SavingsIcon from '@mui/icons-material/Savings';
 import { Link } from 'react-router-dom';
 
@@ -91,6 +92,9 @@ function AdminNavbar() {
                             <MenuItem component="a" href="/clientes" key={'Clientes'} onClick={handleCloseNavMenu}>
                                 <Typography textAlign="center">Clientes</Typography>
                             </MenuItem>
+                            <MenuItem component="a" href="/usuarios" key={'Usuarios'} onClick={handleCloseNavMenu}>
+                                <Typography textAlign="center">Usuarios</Typography>
+                            </MenuItem>
                         </Menu>
                     </Box>
                     <AccountBalanceIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
@@ -120,7 +124,7 @@ function AdminNavbar() {
                             sx={{ my: 2, color: 'white', display: 'block' }}
                         >
                             Cuentas&nbsp;
-                            <SavingsIcon style={{verticalAlign:"middle"}}></SavingsIcon>
+                            <SavingsIcon style={{ verticalAlign: "middle" }}></SavingsIcon>
                         </Button>
                         <Button
                             component={Link} to="/clientes"
@@ -129,7 +133,16 @@ function AdminNavbar() {
                             sx={{ my: 2, color: 'white', display: 'block' }}
                         >
                             Clientes&nbsp;
-                            <ManageAccountsIcon style={{verticalAlign:"middle"}}></ManageAccountsIcon>
+                            <ManageAccountsIcon style={{ verticalAlign: "middle" }}></ManageAccountsIcon>
+                        </Button>
+                        <Button
+                            component={Link} to="/usuarios"
+                            key={'Usuarios'}
+                            onClick={handleCloseNavMenu}
+                            sx={{ my: 2, color: 'white', display: 'block' }}
+                        >
+                            Usuarios
+                            <FaceIcon style={{ verticalAlign: "middle" }}></FaceIcon>
                         </Button>
                     </Box>
                 </Toolbar>
