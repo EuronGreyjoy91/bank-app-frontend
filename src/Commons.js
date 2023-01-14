@@ -10,9 +10,12 @@ export const BASE_USERS_URL = `${BASE_URL_PATH}/users`;
 //VALUES
 export const ADMIN_USER_TYPE_DESCRIPTION = 'Admin';
 export const CLIENT_USER_TYPE_DESCRIPTION = 'Cliente';
+export const CAJA_AHORRO_ACCOUNT_TYPE_CODE = "CAJA_AHORRO";
+export const CUENTA_CORRIENTE_ACCOUNT_TYPE_CODE = "CUENTA_CORRIENTE";
 
 //ERROR CODES
 export const REPEATED_ERROR = { status: 400, code: 'REPEATED_ERROR' };
+export const NOT_FOUND_ERROR = { status: 404, code: 'NOT_FOUND_ERROR' }
 
 //FILTERS NAME
 export const ACCOUNT_TYPE_ID_FILTER = 'accountTypeId';

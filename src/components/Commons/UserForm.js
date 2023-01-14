@@ -17,7 +17,7 @@ function UserForm() {
     const [error, setError] = useState(null);
     const childStateRef = useRef();
 
-    const getChildState = () => {
+    const showErrorDialog = () => {
         const openDialog = childStateRef.current.getHandleClickOpen();
         openDialog();
     }
@@ -68,7 +68,7 @@ function UserForm() {
                 })
                 .catch(error => {
                     if (error.response.data.code === REPEATED_ERROR.code) {
-                        getChildState();
+                        showErrorDialog();
                         formik.values.userName = ''
                     }
                 });

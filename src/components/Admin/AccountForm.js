@@ -8,17 +8,24 @@ import Select from '@mui/material/Select';
 import Stack from '@mui/material/Stack';
 import axios from 'axios';
 import { useFormik } from 'formik';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import * as yup from 'yup';
-import { BASE_ACCOUNTS_URL, BASE_ACCOUNT_TYPES_URL, BASE_CLIENTS_URL } from '../../Commons';
+import { BASE_ACCOUNTS_URL, BASE_ACCOUNT_TYPES_URL, BASE_CLIENTS_URL, CAJA_AHORRO_ACCOUNT_TYPE_CODE, CUENTA_CORRIENTE_ACCOUNT_TYPE_CODE } from '../../Commons';
+import SimpleAlertMessage from '../Commons/SimpleAlertMessage';
 
 function AccountForm() {
     const { accountId } = useParams();
     const [clients, setClients] = useState([]);
-    const [account, setAccount] = useState(null);
     const [accountTypes, setAccountTypes] = useState([]);
     const [error, setError] = useState(null);
+
+    const childStateRef = useRef();
+
+    const showErrorDialog = () => {
+        const openDialog = childStateRef.current.getHandleClickOpen();
+        openDialog();
+    }
 
     const navigate = useNavigate();
 
@@ -26,20 +33,27 @@ function AccountForm() {
         clientId: yup
             .string('Selecciona un cliente')
             .required('El cliente es requerido'),
-        accountTypeId: yup
+        accountTypeCode: yup
             .string('Selecciona un tipo de cuenta')
             .required('El tipo de cuenta es requerido'),
         alias: yup
             .string('')
             .min(10)
-            .max(200)
+            .max(200),
+        offLimitAmount: yup
+            .number()
+            .required('Ingrese un limite de descubierto')
+            .required('El monto descubierto es requerido')
+            .min(0)
+            .max(100000)
     });
 
     const formik = useFormik({
         initialValues: {
             clientId: '',
-            accountTypeId: '',
-            alias: ''
+            accountTypeCode: '',
+            alias: '',
+            offLimitAmount: 0
         },
         validationSchema: validationSchema,
         onSubmit: (values) => {
@@ -47,30 +61,20 @@ function AccountForm() {
                 axios
                     .post(BASE_ACCOUNTS_URL, values)
                     .then((response) => {
-                        if (response.status === 200) {
+                        if (response.status === 200)
                             navigate('/cuentas?alertStatus=success&message=Cuenta guardada con exito', { replace: true });
-                        }
-                        else if (response.status === 400 || response.status === 404) {
-
-                        }
-                        else {
-                            console.log('Error');
-                        }
+                        else
+                            showErrorDialog();
                     });
             }
             else {
                 axios
                     .patch(`${BASE_ACCOUNTS_URL}/${accountId}`, values)
                     .then((response) => {
-                        if (response.status === 200) {
+                        if (response.status === 200)
                             navigate('/cuentas?alertStatus=success&message=Cuenta guardada con exito', { replace: true });
-                        }
-                        else if (response.status === 400 || response.status === 404) {
-
-                        }
-                        else {
-                            console.log('Error');
-                        }
+                        else
+                            showErrorDialog();
                     });
             }
         },
@@ -89,6 +93,7 @@ function AccountForm() {
             .get(BASE_ACCOUNT_TYPES_URL)
             .then((response) => {
                 setAccountTypes(response.data);
+                formik.values.offLimitAmount = response.data.find((accountType) => accountType.code === CUENTA_CORRIENTE_ACCOUNT_TYPE_CODE).offLimitAmount;
                 setError(null);
             })
             .catch(setError);
@@ -96,10 +101,10 @@ function AccountForm() {
         axios
             .get(`${BASE_ACCOUNTS_URL}/${accountId}`)
             .then((response) => {
-                setAccount(response.data);
                 formik.values.clientId = response.data.client._id;
-                formik.values.accountTypeId = response.data.accountType._id;
+                formik.values.accountTypeCode = response.data.accountType.code;
                 formik.values.alias = response.data.alias;
+                formik.values.offLimitAmount = response.data.offLimitAmount;
             })
             .catch(setError);
     }, []);
@@ -132,24 +137,24 @@ function AccountForm() {
                 <FormControl fullWidth disabled={accountId != null}>
                     <InputLabel id="account-type-id-label">Tipo de cuenta</InputLabel>
                     <Select
-                        labelId="account-type-id-label"
-                        id="accountTypeId"
-                        name="accountTypeId"
-                        value={formik.values.accountTypeId}
+                        labelId="account-type-code-label"
+                        id="accountTypeCode"
+                        name="accountTypeCode"
+                        value={formik.values.accountTypeCode}
                         label="Tipo de cuenta"
                         onChange={formik.handleChange}
-                        error={formik.touched.accountTypeId && Boolean(formik.errors.accountTypeId)}
+                        error={formik.touched.accountTypeCode && Boolean(formik.errors.accountTypeCode)}
                     >
                         <MenuItem value="">
                             <em>Seleccione una opci&oacute;n</em>
                         </MenuItem>
                         {
                             accountTypes.map((accountType) => {
-                                return <MenuItem key={accountType._id} value={accountType._id}>{accountType.description}</MenuItem>
+                                return <MenuItem key={accountType._id} value={accountType.code}>{accountType.description}</MenuItem>
                             })
                         }
                     </Select>
-                    {formik.touched.accountTypeId && formik.errors.accountTypeId && <FormHelperText>{formik.errors.accountTypeId}</FormHelperText>}
+                    {formik.touched.accountTypeCode && formik.errors.accountTypeCode && <FormHelperText>{formik.errors.accountTypeCode}</FormHelperText>}
                 </FormControl>
                 <FormControl>
                     <TextField
@@ -164,10 +169,29 @@ function AccountForm() {
                         helperText={formik.touched.alias && formik.errors.alias}
                     />
                 </FormControl>
+                {
+                    formik.values.accountTypeCode !== ''
+                    && formik.values.accountTypeCode !== CAJA_AHORRO_ACCOUNT_TYPE_CODE
+                    &&
+                    <FormControl >
+                        <TextField
+                            fullWidth
+                            variant="outlined"
+                            id="offLimitAmount"
+                            name="offLimitAmount"
+                            label="Limite monto descubierto"
+                            value={formik.values.offLimitAmount}
+                            onChange={formik.handleChange}
+                            error={formik.touched.offLimitAmount && Boolean(formik.errors.offLimitAmount)}
+                            helperText={formik.touched.offLimitAmount && formik.errors.offLimitAmount}
+                        />
+                    </FormControl>
+                }
             </Stack>
             <Button style={{ marginTop: "20px" }} color="primary" variant="contained" type="submit">
                 Guardar
             </Button>
+            <SimpleAlertMessage message={'Error guardado la cuenta, intente nuevamente.'} ref={childStateRef}></SimpleAlertMessage>
         </form>
     );
 }
