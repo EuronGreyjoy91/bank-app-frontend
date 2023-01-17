@@ -1,8 +1,55 @@
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import DisabledByDefaultIcon from '@mui/icons-material/DisabledByDefault';
+import EditIcon from '@mui/icons-material/Edit';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
+import IconButton from '@mui/material/IconButton';
+import Tooltip from '@mui/material/Tooltip';
 import { DataGrid } from '@mui/x-data-grid';
 import moment from 'moment';
+import axios from 'axios';
 import * as React from 'react';
+import { Fragment } from 'react';
+import { BASE_CLIENTS_URL } from '../../Commons';
+
+const patchClient = (account) => {
+    axios
+        .patch(`${BASE_CLIENTS_URL}/${account.accountId}`, account)
+        .then((response) => {
+            if (response.status === 200) {
+                window.location.replace("/clientes?alertStatus=success&message=Cliente modificado con exito");
+            }
+        });
+}
+
+const renderActionsButton = (params) => {
+    return (
+        <Fragment>
+            <Tooltip title={params.row.enable ? "Desactivar" : "Activar"}>
+                <IconButton
+                    variant="contained"
+                    color={params.row.enable ? "error" : "success"}
+                    onClick={() => {
+                        patchClient({ accountId: params.row._id, enable: !params.row.enable });
+                    }}
+                >
+                    {params.row.enable ? <DisabledByDefaultIcon /> : <CheckBoxIcon />}
+                </IconButton>
+            </Tooltip>
+            <Tooltip title="Editar">
+                <IconButton
+                    variant="contained"
+                    color="primary"
+                    onClick={() => {
+                        window.location.replace(`/clientes/${params.row._id}/editar`);
+                    }}
+                >
+                    <EditIcon />
+                </IconButton>
+            </Tooltip>
+        </Fragment>
+    )
+}
 
 const columns = [
     {
@@ -48,13 +95,21 @@ const columns = [
         sortable: true,
         flex: 0.5,
     },
+    {
+        field: 'actions',
+        headerName: 'Acciones',
+        sortable: false,
+        flex: 0.5,
+        renderCell: renderActionsButton,
+        disableClickEventBubbling: true,
+    },
 ];
 
 function ClientsTable({ clients }) {
     return (
         <Grid container spacing={2} alignItems="center">
             <Grid style={{ paddingTop: "40px" }} item xs={12}>
-                <Box sx={{ height: 400, width: '100%' }}>
+                <Box sx={{ height: 600, width: '100%' }}>
                     <DataGrid
                         rows={clients}
                         columns={columns}

@@ -11,10 +11,12 @@ import { useFormik } from 'formik';
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import * as yup from 'yup';
+import es from 'yup-es';
 import { BASE_ACCOUNTS_URL, BASE_ACCOUNT_TYPES_URL, BASE_CLIENTS_URL, CAJA_AHORRO_ACCOUNT_TYPE_CODE, CUENTA_CORRIENTE_ACCOUNT_TYPE_CODE } from '../../Commons';
 import SimpleAlertMessage from '../Commons/SimpleAlertMessage';
 
 function AccountForm() {
+    yup.setLocale(es);
     const { accountId } = useParams();
     const [clients, setClients] = useState([]);
     const [accountTypes, setAccountTypes] = useState([]);
@@ -37,7 +39,7 @@ function AccountForm() {
             .string('Selecciona un tipo de cuenta')
             .required('El tipo de cuenta es requerido'),
         alias: yup
-            .string('')
+            .string('Ingrese un alias valido')
             .min(10)
             .max(200),
         offLimitAmount: yup
@@ -61,20 +63,18 @@ function AccountForm() {
                 axios
                     .post(BASE_ACCOUNTS_URL, values)
                     .then((response) => {
-                        if (response.status === 200)
-                            navigate('/cuentas?alertStatus=success&message=Cuenta guardada con exito', { replace: true });
-                        else
-                            showErrorDialog();
+                        navigate('/cuentas?alertStatus=success&message=Cuenta guardada con exito', { replace: true });
+                    }).catch(error => {
+                        showErrorDialog();
                     });
             }
             else {
                 axios
                     .patch(`${BASE_ACCOUNTS_URL}/${accountId}`, values)
                     .then((response) => {
-                        if (response.status === 200)
-                            navigate('/cuentas?alertStatus=success&message=Cuenta guardada con exito', { replace: true });
-                        else
-                            showErrorDialog();
+                        navigate('/cuentas?alertStatus=success&message=Cuenta guardada con exito', { replace: true });
+                    }).catch(error => {
+                        showErrorDialog();
                     });
             }
         },
@@ -105,6 +105,8 @@ function AccountForm() {
                 formik.values.accountTypeCode = response.data.accountType.code;
                 formik.values.alias = response.data.alias;
                 formik.values.offLimitAmount = response.data.offLimitAmount;
+
+                formik.handleChange();
             })
             .catch(setError);
     }, []);
@@ -191,7 +193,7 @@ function AccountForm() {
             <Button style={{ marginTop: "20px" }} color="primary" variant="contained" type="submit">
                 Guardar
             </Button>
-            <SimpleAlertMessage message={'Error guardado la cuenta, intente nuevamente.'} ref={childStateRef}></SimpleAlertMessage>
+            <SimpleAlertMessage message={'Error guardando la cuenta, intente nuevamente.'} ref={childStateRef}></SimpleAlertMessage>
         </form>
     );
 }

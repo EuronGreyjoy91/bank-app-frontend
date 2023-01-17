@@ -19,6 +19,7 @@ function App() {
                 <Route path="/cuentas/:accountId/editar" element={<NewAccount />} />
                 <Route path="/clientes" element={<Clients />} />
                 <Route path="/clientes/nuevo" element={<NewClient />} />
+                <Route path="/clientes/:clientId/editar" element={<NewClient />} />
                 <Route path="/usuarios" element={<Users />} />
                 <Route path="/usuarios/nuevo" element={<Accounts />} />
                 <Route path="/login/usuarios/nuevo" element={<NewUser />} />

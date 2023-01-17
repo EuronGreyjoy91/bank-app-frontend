@@ -4,14 +4,15 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import axios from 'axios';
 import { useFormik } from 'formik';
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
+import es from 'yup-es';
 import { BASE_USERS_URL, BASE_USER_TYPES_URL, CLIENT_USER_TYPE_DESCRIPTION, REPEATED_ERROR } from '../../Commons';
 import SimpleAlertMessage from "./SimpleAlertMessage";
 
 function UserForm() {
-
+    yup.setLocale(es);
     const navigate = useNavigate();
     const [userTypes, setUserTypes] = useState([]);
     const [error, setError] = useState(null);
@@ -62,9 +63,7 @@ function UserForm() {
             axios
                 .post(BASE_USERS_URL, values)
                 .then((response) => {
-                    if (response.status === 200) {
-                        navigate('/?alertStatus=success', { replace: true });
-                    }
+                    navigate('/?alertStatus=success', { replace: true });
                 })
                 .catch(error => {
                     if (error.response.data.code === REPEATED_ERROR.code) {
@@ -130,7 +129,7 @@ function UserForm() {
                     </Box>
                 </Grid>
             </Grid>
-            <SimpleAlertMessage message = {'Usuario no valido'} ref={childStateRef}></SimpleAlertMessage>
+            <SimpleAlertMessage message={'Usuario no valido'} ref={childStateRef}></SimpleAlertMessage>
         </form>
     )
 }
