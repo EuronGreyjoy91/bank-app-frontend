@@ -16,7 +16,11 @@ export const PERSONA_FISICA_CLIENT_TYPE_CODE = "PERSONA_FISICA";
 export const PERSONA_JURIDICA_CLIENT_TYPE_CODE = "PERSONA_JURIDICA";
 
 //ERROR CODES
-export const REPEATED_ERROR = { status: 400, code: 'REPEATED_ERROR' };
+export const VALIDATION_ERROR = { status: 400, code: 'VALIDATION_ERROR'}
+export const REPEATED_DOCUMENT_ERROR = { status: 400, code: 'REPEATED_DOCUMENT_ERROR' };
+export const REPEATED_ALIAS_ERROR = { status: 400, code: 'REPEATED_ALIAS_ERROR' };
+export const REPEATED_ACCOUNT_TYPE_ERROR = { status: 400, code: 'REPEATED_ACCOUNT_TYPE_ERROR' };
+export const REPEATED_USERNAME_ERROR = { status: 400, code: 'REPEATED_USERNAME_ERROR' };
 export const NOT_FOUND_ERROR = { status: 404, code: 'NOT_FOUND_ERROR' }
 
 //FILTERS NAME

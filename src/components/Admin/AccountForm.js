@@ -12,7 +12,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import * as yup from 'yup';
 import es from 'yup-es';
-import { BASE_ACCOUNTS_URL, BASE_ACCOUNT_TYPES_URL, BASE_CLIENTS_URL, CAJA_AHORRO_ACCOUNT_TYPE_CODE, CUENTA_CORRIENTE_ACCOUNT_TYPE_CODE } from '../../Commons';
+import { BASE_ACCOUNTS_URL, BASE_ACCOUNT_TYPES_URL, BASE_CLIENTS_URL, CAJA_AHORRO_ACCOUNT_TYPE_CODE, CUENTA_CORRIENTE_ACCOUNT_TYPE_CODE, REPEATED_ACCOUNT_TYPE_ERROR, REPEATED_ALIAS_ERROR, VALIDATION_ERROR } from '../../Commons';
 import SimpleAlertMessage from '../Commons/SimpleAlertMessage';
 
 function AccountForm() {
@@ -24,8 +24,8 @@ function AccountForm() {
 
     const childStateRef = useRef();
 
-    const showErrorDialog = () => {
-        const openDialog = childStateRef.current.getHandleClickOpen();
+    const showErrorDialog = (message) => {
+        const openDialog = childStateRef.current.getHandleClickOpen(message);
         openDialog();
     }
 
@@ -59,26 +59,40 @@ function AccountForm() {
         },
         validationSchema: validationSchema,
         onSubmit: (values) => {
+            if (values.alias === '')
+                delete values.alias;
+
             if (accountId == null) {
                 axios
                     .post(BASE_ACCOUNTS_URL, values)
                     .then((response) => {
                         navigate('/cuentas?alertStatus=success&message=Cuenta guardada con exito', { replace: true });
                     }).catch(error => {
-                        showErrorDialog();
+                        handleErrorResponse(error);
                     });
-            }
+                }
             else {
                 axios
                     .patch(`${BASE_ACCOUNTS_URL}/${accountId}`, values)
                     .then((response) => {
                         navigate('/cuentas?alertStatus=success&message=Cuenta guardada con exito', { replace: true });
                     }).catch(error => {
-                        showErrorDialog();
+                        handleErrorResponse(error);
                     });
             }
         },
     });
+
+    const handleErrorResponse = (error) => {
+        if (error.response.data.code === VALIDATION_ERROR.code)
+            showErrorDialog("Hay un problema con los datos enviados, revise e intente nuevamente");
+        else if (error.response.data.code === REPEATED_ALIAS_ERROR.code)
+            showErrorDialog("El alias ya se encuentra utilizado.");
+        else if (error.response.data.code === REPEATED_ACCOUNT_TYPE_ERROR.code)
+            showErrorDialog("El cliente ya posee ese tipo de cuenta.");
+        else
+            showErrorDialog("Ocurrio un error, intente nuevamente.");
+    }
 
     useEffect(() => {
         axios
@@ -193,7 +207,7 @@ function AccountForm() {
             <Button style={{ marginTop: "20px" }} color="primary" variant="contained" type="submit">
                 Guardar
             </Button>
-            <SimpleAlertMessage message={'Error guardando la cuenta, intente nuevamente.'} ref={childStateRef}></SimpleAlertMessage>
+            <SimpleAlertMessage ref={childStateRef}></SimpleAlertMessage>
         </form>
     );
 }

@@ -8,6 +8,7 @@ import React, { forwardRef, useImperativeHandle, useState } from 'react';
 
 const SimpleAlertMessage = forwardRef((props, _ref) => {
     const [open, setOpen] = useState(false);
+    const [message, setMessage] = useState('Ocurrio un error, intente nuevamente');
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -17,8 +18,9 @@ const SimpleAlertMessage = forwardRef((props, _ref) => {
         setOpen(false);
     };
 
-    useImperativeHandle(_ref, () => ({
-        getHandleClickOpen: () => {
+    useImperativeHandle(_ref, (message) => ({
+        getHandleClickOpen: (message) => {
+            setMessage(message);
             return handleClickOpen;
         },
     }));
@@ -35,7 +37,7 @@ const SimpleAlertMessage = forwardRef((props, _ref) => {
             </DialogTitle>
             <DialogContent>
                 <DialogContentText id="alert-dialog-description">
-                    {props.message}
+                    {message}
                 </DialogContentText>
             </DialogContent>
             <DialogActions>

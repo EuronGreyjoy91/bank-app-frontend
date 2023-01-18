@@ -8,7 +8,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 import es from 'yup-es';
-import { BASE_USERS_URL, BASE_USER_TYPES_URL, CLIENT_USER_TYPE_DESCRIPTION, REPEATED_ERROR } from '../../Commons';
+import { BASE_USERS_URL, BASE_USER_TYPES_URL, CLIENT_USER_TYPE_DESCRIPTION, REPEATED_USERNAME_ERROR } from '../../Commons';
 import SimpleAlertMessage from "./SimpleAlertMessage";
 
 function UserForm() {
@@ -18,8 +18,8 @@ function UserForm() {
     const [error, setError] = useState(null);
     const childStateRef = useRef();
 
-    const showErrorDialog = () => {
-        const openDialog = childStateRef.current.getHandleClickOpen();
+    const showErrorDialog = (message) => {
+        const openDialog = childStateRef.current.getHandleClickOpen(message);
         openDialog();
     }
 
@@ -66,10 +66,10 @@ function UserForm() {
                     navigate('/?alertStatus=success', { replace: true });
                 })
                 .catch(error => {
-                    if (error.response.data.code === REPEATED_ERROR.code) {
-                        showErrorDialog();
-                        formik.values.userName = ''
-                    }
+                    if (error.response.data.code === REPEATED_USERNAME_ERROR.code)
+                        showErrorDialog("Usuario no valido");
+                    else
+                        showErrorDialog("Ocurrio un error, intente nuevamente");
                 });
         },
     });
@@ -129,7 +129,7 @@ function UserForm() {
                     </Box>
                 </Grid>
             </Grid>
-            <SimpleAlertMessage message={'Usuario no valido'} ref={childStateRef}></SimpleAlertMessage>
+            <SimpleAlertMessage ref={childStateRef}></SimpleAlertMessage>
         </form>
     )
 }

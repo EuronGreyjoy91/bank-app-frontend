@@ -12,7 +12,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import * as yup from 'yup';
 import es from 'yup-es';
-import { BASE_CLIENTS_URL, BASE_CLIENT_TYPES_URL, PERSONA_JURIDICA_CLIENT_TYPE_CODE } from '../../Commons';
+import { BASE_CLIENTS_URL, BASE_CLIENT_TYPES_URL, PERSONA_JURIDICA_CLIENT_TYPE_CODE, REPEATED_DOCUMENT_ERROR, VALIDATION_ERROR } from '../../Commons';
 import SimpleAlertMessage from '../Commons/SimpleAlertMessage';
 
 function ClientForm() {
@@ -23,8 +23,8 @@ function ClientForm() {
 
     const childStateRef = useRef();
 
-    const showErrorDialog = () => {
-        const openDialog = childStateRef.current.getHandleClickOpen();
+    const showErrorDialog = (message) => {
+        const openDialog = childStateRef.current.getHandleClickOpen(message);
         openDialog();
     }
 
@@ -86,7 +86,7 @@ function ClientForm() {
                     .then((response) => {
                         navigate('/clientes?alertStatus=success&message=Cliente guardado con exito', { replace: true });
                     }).catch(error => {
-                        showErrorDialog();
+                        handleErrorResponse(error);
                     });
             }
             else {
@@ -95,11 +95,20 @@ function ClientForm() {
                     .then((response) => {
                         navigate('/clientes?alertStatus=success&message=Cliente guardado con exito', { replace: true });
                     }).catch(error => {
-                        showErrorDialog();
+                        handleErrorResponse(error);
                     });
             }
         },
     });
+
+    const handleErrorResponse = (error) => {
+        if (error.response.data.code === VALIDATION_ERROR.code)
+            showErrorDialog("Hay un problema con los datos enviados, revise e intente nuevamente");
+        else if (error.response.data.code === REPEATED_DOCUMENT_ERROR.code)
+            showErrorDialog("El documento o el cuit cargado ya se encuentra utilizado.");
+        else
+            showErrorDialog("Ocurrio un error, intente nuevamente.");
+    }
 
     useEffect(() => {
         axios
@@ -234,7 +243,7 @@ function ClientForm() {
             <Button style={{ marginTop: "20px" }} color="primary" variant="contained" type="submit">
                 Guardar
             </Button>
-            <SimpleAlertMessage message={'Error guardando al cliente, intente nuevamente.'} ref={childStateRef}></SimpleAlertMessage>
+            <SimpleAlertMessage ref={childStateRef}></SimpleAlertMessage>
         </form >
     );
 }
