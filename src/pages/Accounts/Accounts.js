@@ -1,15 +1,16 @@
-import Button from "@material-ui/core/Button";
+import React, { Fragment } from 'react';
+
+import AccountsSearchBox from '../../components/AdminComponents/Accounts/AccountsSearchBox';
 import AddIcon from '@mui/icons-material/Add';
-import { Typography } from '@mui/material';
+import AdminNavbar from '../../components/AdminComponents/AdminNavbar';
+import AlertWithTimer from "../../components/Commons/AlertWithTimer";
 import Box from '@mui/material/Box';
+import Button from "@material-ui/core/Button";
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
-import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import AccountsSearchBox from '../components/Admin/AccountsSearchBox';
-import AdminNavbar from '../components/Admin/AdminNavbar';
+import { Typography } from '@mui/material';
 import { useSearchParams } from "react-router-dom";
-import AlertWithTimer from "../components/Commons/AlertWithTimer";
 
 function Accounts() {
     const [searchParams] = useSearchParams();

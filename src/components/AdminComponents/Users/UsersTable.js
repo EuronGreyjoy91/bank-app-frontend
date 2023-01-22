@@ -1,23 +1,23 @@
-import CheckBoxIcon from '@mui/icons-material/CheckBox';
-import DisabledByDefaultIcon from '@mui/icons-material/DisabledByDefault';
-import EditIcon from '@mui/icons-material/Edit';
+import * as React from 'react';
+
+import { BASE_USERS_URL } from '../../../Commons';
 import Box from '@mui/material/Box';
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import { DataGrid } from '@mui/x-data-grid';
+import DisabledByDefaultIcon from '@mui/icons-material/DisabledByDefault';
+import { Fragment } from 'react';
 import Grid from '@mui/material/Grid';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
-import { DataGrid } from '@mui/x-data-grid';
-import moment from 'moment';
 import axios from 'axios';
-import * as React from 'react';
-import { Fragment } from 'react';
-import { BASE_CLIENTS_URL } from '../../Commons';
+import moment from 'moment';
 
-const patchClient = (account) => {
+const patchAccount = (account) => {
     axios
-        .patch(`${BASE_CLIENTS_URL}/${account.accountId}`, account)
+        .patch(`${BASE_USERS_URL}/${account.accountId}`, account)
         .then((response) => {
             if (response.status === 200) {
-                window.location.replace("/clientes?alertStatus=success&message=Cliente modificado con exito");
+                window.location.replace("/usuarios?alertStatus=success&message=Usuario modificado con exito");
             }
         });
 }
@@ -30,21 +30,10 @@ const renderActionsButton = (params) => {
                     variant="contained"
                     color={params.row.enable ? "error" : "success"}
                     onClick={() => {
-                        patchClient({ accountId: params.row._id, enable: !params.row.enable });
+                        patchAccount({ accountId: params.row._id, enable: !params.row.enable });
                     }}
                 >
                     {params.row.enable ? <DisabledByDefaultIcon /> : <CheckBoxIcon />}
-                </IconButton>
-            </Tooltip>
-            <Tooltip title="Editar">
-                <IconButton
-                    variant="contained"
-                    color="primary"
-                    onClick={() => {
-                        window.location.replace(`/clientes/${params.row._id}/editar`);
-                    }}
-                >
-                    <EditIcon />
                 </IconButton>
             </Tooltip>
         </Fragment>
@@ -59,33 +48,23 @@ const columns = [
     },
     {
         field: 'description',
-        headerName: 'Tipo de cliente',
+        headerName: 'Tipo de usuario',
         flex: 0.5,
         valueGetter: (params) => {
-            return params.row.clientType.description;
+            return params.row.userType.description;
         }
     },
     {
-        field: 'Name',
-        headerName: 'Nombre',
+        field: 'userName',
+        headerName: 'Usuario',
         flex: 1,
-        valueGetter: (params) => `${params.row.name} ${params.row.lastName}`
-    },
-    {
-        field: 'cuitCuil',
-        headerName: 'Cuit / Cuil',
-        flex: 0.5
+        valueGetter: (params) => `${params.row.userName}`
     },
     {
         field: 'creationDate',
         headerName: 'Fecha creacion',
         flex: 1,
         valueFormatter: params => moment(params?.value).format("DD/MM/YYYY HH:mm"),
-    },
-    {
-        field: 'document',
-        headerName: 'Documento',
-        flex: 0.5,
     },
     {
         field: 'enable',
@@ -105,13 +84,13 @@ const columns = [
     },
 ];
 
-function ClientsTable({ clients }) {
+function UsersTable({ users }) {
     return (
         <Grid container spacing={2} alignItems="center">
             <Grid style={{ paddingTop: "40px" }} item xs={12}>
                 <Box sx={{ height: 600, width: '100%' }}>
                     <DataGrid
-                        rows={clients}
+                        rows={users}
                         columns={columns}
                         pageSize={10}
                         rowsPerPageOptions={[10]}
@@ -126,4 +105,4 @@ function ClientsTable({ clients }) {
     );
 }
 
-export default ClientsTable;
+export default UsersTable;

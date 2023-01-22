@@ -1,25 +1,26 @@
+import * as yup from 'yup';
+
+import { BASE_CLIENTS_URL, BASE_CLIENT_TYPES_URL, PERSONA_JURIDICA_CLIENT_TYPE_CODE, REPEATED_DOCUMENT_ERROR, VALIDATION_ERROR } from '../../../Commons';
+import React, { useEffect, useRef, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+
 import Button from '@material-ui/core/Button';
-import TextField from "@material-ui/core/TextField";
 import FormControl from '@mui/material/FormControl';
 import FormHelperText from '@mui/material/FormHelperText';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
+import SimpleAlertMessage from '../../Commons/SimpleAlertMessage';
 import Stack from '@mui/material/Stack';
+import TextField from "@material-ui/core/TextField";
 import axios from 'axios';
-import { useFormik } from 'formik';
-import React, { useEffect, useRef, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import * as yup from 'yup';
 import es from 'yup-es';
-import { BASE_CLIENTS_URL, BASE_CLIENT_TYPES_URL, PERSONA_JURIDICA_CLIENT_TYPE_CODE, REPEATED_DOCUMENT_ERROR, VALIDATION_ERROR } from '../../Commons';
-import SimpleAlertMessage from '../Commons/SimpleAlertMessage';
+import { useFormik } from 'formik';
 
 function ClientForm() {
     yup.setLocale(es);
     const { clientId } = useParams();
     const [clientTypes, setClientTypes] = useState([]);
-    const [error, setError] = useState(null);
 
     const childStateRef = useRef();
 
@@ -115,9 +116,7 @@ function ClientForm() {
             .get(BASE_CLIENT_TYPES_URL)
             .then((response) => {
                 setClientTypes(response.data);
-                setError(null);
             })
-            .catch(setError);
 
         axios
             .get(`${BASE_CLIENTS_URL}/${clientId}`)
@@ -135,7 +134,6 @@ function ClientForm() {
 
                 formik.handleChange();
             })
-            .catch(setError);
     }, []);
 
     return (

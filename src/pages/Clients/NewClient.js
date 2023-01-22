@@ -1,10 +1,11 @@
-import { Typography } from '@mui/material';
+import React, { Fragment } from 'react';
+
+import AdminNavbar from '../../components/AdminComponents/AdminNavbar';
+import ClientForm from '../../components/AdminComponents/Clients/ClientForm';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
-import React, { Fragment } from 'react';
+import { Typography } from '@mui/material';
 import { useParams } from "react-router-dom";
-import AdminNavbar from '../components/Admin/AdminNavbar';
-import ClientForm from '../components/Admin/ClientForm';
 
 const NewClient = () => {
     const { clientId } = useParams();

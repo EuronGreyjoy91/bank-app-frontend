@@ -1,9 +1,9 @@
-import { Typography } from '@mui/material';
 import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
 import { Fragment } from 'react';
-import LoginNavbar from '../components/Commons/LoginNavbar';
-import UserForm from '../components/Commons/UserForm';
+import Grid from '@mui/material/Grid';
+import LoginNavbar from '../../components/Commons/LoginNavbar';
+import { Typography } from '@mui/material';
+import UserForm from '../../components/Commons/UserForm';
 
 const NewUser = () => {
     return (

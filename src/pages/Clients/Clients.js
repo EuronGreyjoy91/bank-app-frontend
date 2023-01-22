@@ -1,16 +1,17 @@
-import Button from "@material-ui/core/Button";
+import { Link, useSearchParams } from 'react-router-dom';
+import React, { Fragment } from 'react';
+
 import AddIcon from '@mui/icons-material/Add';
-import { Typography } from '@mui/material';
+import AdminNavbar from '../../components/AdminComponents/AdminNavbar';
+import AlertWithTimer from "../../components/Commons/AlertWithTimer";
 import Box from '@mui/material/Box';
+import Button from "@material-ui/core/Button";
+import ClientsSearchBox from '../../components/AdminComponents/Clients/ClientsSearchBox';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
-import React, { Fragment } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
-import AdminNavbar from '../components/Admin/AdminNavbar';
-import UsersSearchBox from "../components/Admin/UsersSearchBox";
-import AlertWithTimer from "../components/Commons/AlertWithTimer";
+import { Typography } from '@mui/material';
 
-function Users() {
+function Clients() {
     const [searchParams] = useSearchParams();
 
     return (
@@ -23,21 +24,21 @@ function Users() {
                 <Grid container spacing={2} alignItems="center">
                     <Grid style={{ paddingTop: "40px" }} item xs={8}>
                         <Typography variant="h4">
-                            Usuarios
+                            Clientes
                         </Typography>
                     </Grid>
                     <Grid style={{ paddingTop: "40px" }} item xs={4}>
                         <Box textAlign='right'>
-                            <Button component={Link} to="/usuarios/nuevo" variant="contained" color="primary" disabled>
-                                Nuevo usuario <AddIcon></AddIcon>
+                            <Button component={Link} to="/clientes/nuevo" variant="contained" color="primary">
+                                Nuevo cliente <AddIcon></AddIcon>
                             </Button>
                         </Box>
                     </Grid>
                 </Grid>
-                <UsersSearchBox></UsersSearchBox>
+                <ClientsSearchBox></ClientsSearchBox>
             </Container>
         </Fragment>
     )
 };
 
-export default Users;
+export default Clients;

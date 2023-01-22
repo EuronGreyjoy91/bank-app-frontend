@@ -1,22 +1,22 @@
-import { TextField } from '@mui/material';
+import { ACCOUNT_NUMBER_FILTER, ACCOUNT_TYPE_ID_FILTER, ALIAS_FILTER, BASE_ACCOUNTS_URL, BASE_ACCOUNT_TYPES_URL, objectsToUrlParamsString } from '../../../Commons';
+import React, { Fragment, useEffect, useState } from 'react';
+
+import AccountsTable from './AccountsTable';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import CleaningServicesIcon from '@mui/icons-material/CleaningServices';
 import FormControl from '@mui/material/FormControl';
 import Grid from '@mui/material/Grid';
-import SearchIcon from '@mui/icons-material/Search';
-import CleaningServicesIcon from '@mui/icons-material/CleaningServices';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
+import SearchIcon from '@mui/icons-material/Search';
 import Select from '@mui/material/Select';
+import { TextField } from '@mui/material';
 import axios from 'axios';
-import AccountsTable from './AccountsTable';
-import React, { Fragment, useEffect, useState } from 'react';
-import { BASE_ACCOUNT_TYPES_URL, ACCOUNT_TYPE_ID_FILTER, ALIAS_FILTER, ACCOUNT_NUMBER_FILTER, BASE_ACCOUNTS_URL, objectsToUrlParamsString } from '../../Commons';
 
 function AccountsSearchBox() {
     const [accountTypes, setAccountTypes] = useState([]);
     const [accounts, setAccounts] = useState([]);
-    const [error, setError] = useState(null);
 
     const [accountTypeId, setAccountTypeId] = useState('');
     const [alias, setAlias] = useState('');
@@ -38,9 +38,7 @@ function AccountsSearchBox() {
         axios(BASE_ACCOUNT_TYPES_URL)
             .then((response) => {
                 setAccountTypes(response.data);
-                setError(null);
             })
-            .catch(setError);
     }, []);
 
     useEffect(() => {
@@ -74,9 +72,7 @@ function AccountsSearchBox() {
         axios(`${BASE_ACCOUNTS_URL}?${filters}`)
         .then((response) => {
             setAccounts(response.data);
-            setError(null);
         })
-        .catch(setError);
     }
 
     const handleFormClean = () => {

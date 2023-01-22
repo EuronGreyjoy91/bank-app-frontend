@@ -1,10 +1,11 @@
-import { Typography } from '@mui/material';
+import React, { Fragment } from 'react';
+
+import AccountForm from '../../components/AdminComponents/Accounts/AccountForm';
+import AdminNavbar from '../../components/AdminComponents/AdminNavbar';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
-import React, { Fragment } from 'react';
+import { Typography } from '@mui/material';
 import { useParams } from "react-router-dom";
-import AccountForm from '../components/Admin/AccountForm';
-import AdminNavbar from '../components/Admin/AdminNavbar';
 
 const NewAccount = () => {
     const { accountId } = useParams();

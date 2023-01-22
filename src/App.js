@@ -1,13 +1,15 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
-import Accounts from './pages/Accounts';
-import Clients from './pages/Clients';
+
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+
+import Accounts from './pages/Accounts/Accounts';
+import Clients from './pages/Clients/Clients';
 import Home from './pages/Home';
-import NewAccount from './pages/NewAccount';
-import NewClient from './pages/NewClient';
-import NewUser from './pages/NewUser';
-import Users from './pages/Users';
+import NewAccount from './pages/Accounts/NewAccount';
+import NewClient from './pages/Clients/NewClient';
+import NewUser from './pages/Users/NewUser';
 import PageNotFound from './pages/PageNotFound.js';
+import Users from './pages/Users/Users';
 
 function App() {
     return (

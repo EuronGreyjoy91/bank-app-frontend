@@ -1,21 +1,22 @@
-import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import axios from 'axios';
-import { useFormik } from 'formik';
-import React, { useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
-import es from 'yup-es';
+
 import { BASE_USERS_URL, BASE_USER_TYPES_URL, CLIENT_USER_TYPE_DESCRIPTION, REPEATED_USERNAME_ERROR } from '../../Commons';
+import React, { useEffect, useRef, useState } from 'react';
+
+import Box from '@mui/material/Box';
+import Button from "@material-ui/core/Button";
+import Grid from '@mui/material/Grid';
 import SimpleAlertMessage from "./SimpleAlertMessage";
+import TextField from "@material-ui/core/TextField";
+import axios from 'axios';
+import es from 'yup-es';
+import { useFormik } from 'formik';
+import { useNavigate } from 'react-router-dom';
 
 function UserForm() {
     yup.setLocale(es);
     const navigate = useNavigate();
     const [userTypes, setUserTypes] = useState([]);
-    const [error, setError] = useState(null);
     const childStateRef = useRef();
 
     const showErrorDialog = (message) => {
@@ -28,9 +29,7 @@ function UserForm() {
             .then((response) => {
                 setUserTypes(response.data);
                 formik.values.userTypeId = response.data.find(userType => userType.description === CLIENT_USER_TYPE_DESCRIPTION)._id;
-                setError(null);
             })
-            .catch(setError);
     }, []);
 
     const validationSchema = yup.object({

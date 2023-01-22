@@ -1,16 +1,17 @@
+import * as React from 'react';
+
+import { BASE_ACCOUNTS_URL } from '../../../Commons';
+import Box from '@mui/material/Box';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import { DataGrid } from '@mui/x-data-grid';
 import DisabledByDefaultIcon from '@mui/icons-material/DisabledByDefault';
 import EditIcon from '@mui/icons-material/Edit';
-import Box from '@mui/material/Box';
+import { Fragment } from 'react';
 import Grid from '@mui/material/Grid';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
-import { DataGrid } from '@mui/x-data-grid';
 import axios from 'axios';
 import moment from 'moment';
-import * as React from 'react';
-import { Fragment } from 'react';
-import { BASE_ACCOUNTS_URL } from '../../Commons';
 
 const patchAccount = (account) => {
     axios

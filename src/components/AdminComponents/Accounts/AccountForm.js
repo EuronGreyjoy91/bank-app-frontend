@@ -1,26 +1,27 @@
+import * as yup from 'yup';
+
+import { BASE_ACCOUNTS_URL, BASE_ACCOUNT_TYPES_URL, BASE_CLIENTS_URL, CAJA_AHORRO_ACCOUNT_TYPE_CODE, CUENTA_CORRIENTE_ACCOUNT_TYPE_CODE, REPEATED_ACCOUNT_TYPE_ERROR, REPEATED_ALIAS_ERROR, VALIDATION_ERROR } from '../../../Commons';
+import React, { useEffect, useRef, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+
 import Button from '@material-ui/core/Button';
-import TextField from "@material-ui/core/TextField";
 import FormControl from '@mui/material/FormControl';
 import FormHelperText from '@mui/material/FormHelperText';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
+import SimpleAlertMessage from '../../Commons/SimpleAlertMessage';
 import Stack from '@mui/material/Stack';
+import TextField from "@material-ui/core/TextField";
 import axios from 'axios';
-import { useFormik } from 'formik';
-import React, { useEffect, useRef, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import * as yup from 'yup';
 import es from 'yup-es';
-import { BASE_ACCOUNTS_URL, BASE_ACCOUNT_TYPES_URL, BASE_CLIENTS_URL, CAJA_AHORRO_ACCOUNT_TYPE_CODE, CUENTA_CORRIENTE_ACCOUNT_TYPE_CODE, REPEATED_ACCOUNT_TYPE_ERROR, REPEATED_ALIAS_ERROR, VALIDATION_ERROR } from '../../Commons';
-import SimpleAlertMessage from '../Commons/SimpleAlertMessage';
+import { useFormik } from 'formik';
 
 function AccountForm() {
     yup.setLocale(es);
     const { accountId } = useParams();
     const [clients, setClients] = useState([]);
     const [accountTypes, setAccountTypes] = useState([]);
-    const [error, setError] = useState(null);
 
     const childStateRef = useRef();
 
@@ -99,18 +100,14 @@ function AccountForm() {
             .get(BASE_CLIENTS_URL)
             .then((response) => {
                 setClients(response.data);
-                setError(null);
             })
-            .catch(setError);
 
         axios
             .get(BASE_ACCOUNT_TYPES_URL)
             .then((response) => {
                 setAccountTypes(response.data);
                 formik.values.offLimitAmount = response.data.find((accountType) => accountType.code === CUENTA_CORRIENTE_ACCOUNT_TYPE_CODE).offLimitAmount;
-                setError(null);
             })
-            .catch(setError);
 
         axios
             .get(`${BASE_ACCOUNTS_URL}/${accountId}`)
@@ -122,7 +119,6 @@ function AccountForm() {
 
                 formik.handleChange();
             })
-            .catch(setError);
     }, []);
 
     return (

@@ -1,23 +1,24 @@
-import CleaningServicesIcon from '@mui/icons-material/CleaningServices';
-import SearchIcon from '@mui/icons-material/Search';
+import * as React from 'react';
+
+import { BASE_USERS_URL, BASE_USER_TYPES_URL, USERNAME_FILTER, USER_TYPE_ID_FILTER, objectsToUrlParamsString } from '../../../Commons';
+import { Fragment, useEffect, useState } from 'react';
+
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Grid from '@mui/material/Grid';
-import TextField from '@mui/material/TextField';
-import axios from 'axios';
-import * as React from 'react';
-import { Fragment, useEffect, useState } from 'react';
+import CleaningServicesIcon from '@mui/icons-material/CleaningServices';
 import FormControl from '@mui/material/FormControl';
-import MenuItem from '@mui/material/MenuItem';
+import Grid from '@mui/material/Grid';
 import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import SearchIcon from '@mui/icons-material/Search';
 import Select from '@mui/material/Select';
-import { BASE_USERS_URL, BASE_USER_TYPES_URL, objectsToUrlParamsString, USER_TYPE_ID_FILTER, USERNAME_FILTER } from '../../Commons';
+import TextField from '@mui/material/TextField';
 import UsersTable from './UsersTable';
+import axios from 'axios';
 
 function UsersSearchBox() {
     const [userTypes, setUserTypes] = useState([]);
     const [users, setUsers] = useState([]);
-    const [error, setError] = useState(null);
 
     const [userTypeId, setUserTypeId] = useState('');
     const [userName, setUserName] = useState('');
@@ -34,9 +35,7 @@ function UsersSearchBox() {
         axios(BASE_USER_TYPES_URL)
             .then((response) => {
                 setUserTypes(response.data);
-                setError(null);
             })
-            .catch(setError);
     }, []);
 
     useEffect(() => {
@@ -66,9 +65,7 @@ function UsersSearchBox() {
         axios(`${BASE_USERS_URL}?${filters}`)
             .then((response) => {
                 setUsers(response.data);
-                setError(null);
             })
-            .catch(setError);
     }
 
     const handleFormClean = () => {
@@ -81,9 +78,7 @@ function UsersSearchBox() {
         axios(BASE_USERS_URL)
             .then((response) => {
                 setUsers(response.data);
-                setError(null);
             })
-            .catch(setError);
     }, []);
 
     return (

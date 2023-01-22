@@ -1,14 +1,15 @@
-import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
-import { Typography } from '@mui/material';
+import React, { Fragment } from 'react';
+
+import AlertWithTimer from '../components/Commons/AlertWithTimer';
 import Box from '@mui/material/Box';
+import Button from "@material-ui/core/Button";
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Link from '@mui/material/Link';
-import React, { Fragment } from 'react';
-import { useSearchParams } from "react-router-dom";
-import AlertWithTimer from '../components/Commons/AlertWithTimer';
 import LoginNavbar from '../components/Commons/LoginNavbar';
+import TextField from "@material-ui/core/TextField";
+import { Typography } from '@mui/material';
+import { useSearchParams } from "react-router-dom";
 
 const Home = () => {
     const [searchParams] = useSearchParams();

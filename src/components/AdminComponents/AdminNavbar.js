@@ -1,37 +1,29 @@
-import React from 'react';
+import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
+import Button from '@mui/material/Button';
+import Container from '@mui/material/Container';
+import FaceIcon from '@mui/icons-material/Face';
 import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
+import { Link } from 'react-router-dom';
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
-import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
-import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
-import FaceIcon from '@mui/icons-material/Face';
+import React from 'react';
 import SavingsIcon from '@mui/icons-material/Savings';
-import { Link } from 'react-router-dom';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
 
 function AdminNavbar() {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
-    const [anchorElUser, setAnchorElUser] = React.useState(null);
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
     };
-    const handleOpenUserMenu = (event) => {
-        setAnchorElUser(event.currentTarget);
-    };
 
     const handleCloseNavMenu = () => {
         setAnchorElNav(null);
-    };
-
-    const handleCloseUserMenu = () => {
-        setAnchorElUser(null);
     };
 
     return (

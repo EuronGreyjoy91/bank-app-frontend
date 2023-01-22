@@ -1,23 +1,24 @@
-import CleaningServicesIcon from '@mui/icons-material/CleaningServices';
-import SearchIcon from '@mui/icons-material/Search';
+import * as React from 'react';
+
+import { BASE_CLIENTS_URL, BASE_CLIENT_TYPES_URL, CLIENT_TYPE_ID_FILTER, CUIT_CUIL_FILTER, DOCUMENT_FILTER, objectsToUrlParamsString } from '../../../Commons';
+import { Fragment, useEffect, useState } from 'react';
+
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import CleaningServicesIcon from '@mui/icons-material/CleaningServices';
+import ClientsTable from './ClientsTable';
+import FormControl from '@mui/material/FormControl';
 import Grid from '@mui/material/Grid';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import SearchIcon from '@mui/icons-material/Search';
+import Select from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
 import axios from 'axios';
-import * as React from 'react';
-import { Fragment, useEffect, useState } from 'react';
-import FormControl from '@mui/material/FormControl';
-import MenuItem from '@mui/material/MenuItem';
-import InputLabel from '@mui/material/InputLabel';
-import Select from '@mui/material/Select';
-import { BASE_CLIENTS_URL, BASE_CLIENT_TYPES_URL, objectsToUrlParamsString, CLIENT_TYPE_ID_FILTER, CUIT_CUIL_FILTER, DOCUMENT_FILTER } from '../../Commons';
-import ClientsTable from './ClientsTable';
 
 function ClientsSearchBox() {
     const [clientTypes, setClientTypes] = useState([]);
     const [clients, setClients] = useState([]);
-    const [error, setError] = useState(null);
 
     const [clientTypeId, setClientTypeId] = useState('');
     const [cuitCuil, setCuitCuil] = useState('');
@@ -39,9 +40,7 @@ function ClientsSearchBox() {
         axios(BASE_CLIENT_TYPES_URL)
             .then((response) => {
                 setClientTypes(response.data);
-                setError(null);
             })
-            .catch(setError);
     }, []);
 
     useEffect(() => {
@@ -75,9 +74,7 @@ function ClientsSearchBox() {
         axios(`${BASE_CLIENTS_URL}?${filters}`)
             .then((response) => {
                 setClients(response.data);
-                setError(null);
             })
-            .catch(setError);
     }
 
     const handleFormClean = () => {
@@ -91,9 +88,7 @@ function ClientsSearchBox() {
         axios(BASE_CLIENTS_URL)
             .then((response) => {
                 setClients(response.data);
-                setError(null);
             })
-            .catch(setError);
     }, []);
 
     return (
