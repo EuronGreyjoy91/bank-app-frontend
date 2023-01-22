@@ -1,23 +1,31 @@
+import React, { Fragment } from 'react';
+
+import AdminNavbar from '../../components/AdminComponents/AdminNavbar';
 import Container from '@mui/material/Container';
-import { Fragment } from 'react';
 import Grid from '@mui/material/Grid';
-import LoginNavbar from '../../components/Commons/LoginNavbar';
 import { Typography } from '@mui/material';
-import UserForm from '../../components/Commons/UserForm';
+import UserForm from '../../components/AdminComponents/Users/UserForm';
+import { useParams } from "react-router-dom";
 
 const NewUser = () => {
+    const { userId } = useParams();
+
     return (
         <Fragment>
-            <LoginNavbar />
-            <Container>
+            <AdminNavbar></AdminNavbar>
+            <Container maxWidth={false}>
                 <Grid container spacing={2} alignItems="center">
-                    <Grid style={{ paddingTop: "40px" }} item xs={12}>
-                        <Typography align="center" variant="h3">
-                            Nuevo usuario
+                    <Grid style={{ paddingTop: "40px" }} item xs={8}>
+                        <Typography variant="h4">
+                            {userId != null ? "Editar usuario" : "Nuevo usuario"}
                         </Typography>
                     </Grid>
                 </Grid>
-                <UserForm></UserForm>
+                <Grid container spacing={2} alignItems="center">
+                    <Grid style={{ paddingTop: "40px" }} item xs={12} md={4}>
+                        <UserForm></UserForm>
+                    </Grid>
+                </Grid>
             </Container>
         </Fragment>
     )

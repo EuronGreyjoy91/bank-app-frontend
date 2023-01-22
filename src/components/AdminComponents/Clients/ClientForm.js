@@ -118,22 +118,22 @@ function ClientForm() {
                 setClientTypes(response.data);
             })
 
-        axios
-            .get(`${BASE_CLIENTS_URL}/${clientId}`)
-            .then((response) => {
-                formik.values.name = response.data.name;
-                formik.values.lastName = response.data.lastName;
-                formik.values.document = response.data.document;
-                formik.values.cuitCuil = response.data.cuitCuil;
-                formik.values.clientTypeCode = response.data.clientType.code;
+        if (clientId != null) {
+            axios
+                .get(`${BASE_CLIENTS_URL}/${clientId}`)
+                .then((response) => {
+                    formik.setFieldValue("name", response.data.name);
+                    formik.setFieldValue("lastName", response.data.lastName);
+                    formik.setFieldValue("document", response.data.document);
+                    formik.setFieldValue("cuitCuil", response.data.cuitCuil);
+                    formik.setFieldValue("clientTypeCode", response.data.clientType.code);
 
-                if (response.data.clientType.code === PERSONA_JURIDICA_CLIENT_TYPE_CODE) {
-                    formik.values.businessName = response.data.businessName;
-                    formik.values.adress = response.data.adress;
-                }
-
-                formik.handleChange();
-            })
+                    if (response.data.clientType.code === PERSONA_JURIDICA_CLIENT_TYPE_CODE) {
+                        formik.setFieldValue("businessName", response.data.businessName);
+                        formik.setFieldValue("adress", response.data.adress);
+                    }
+                })
+        }
     }, []);
 
     return (

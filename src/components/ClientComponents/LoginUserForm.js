@@ -1,22 +1,21 @@
 import * as yup from 'yup';
 
 import { BASE_USERS_URL, BASE_USER_TYPES_URL, CLIENT_USER_TYPE_DESCRIPTION, REPEATED_USERNAME_ERROR } from '../../Commons';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 import Box from '@mui/material/Box';
 import Button from "@material-ui/core/Button";
 import Grid from '@mui/material/Grid';
-import SimpleAlertMessage from "./SimpleAlertMessage";
+import SimpleAlertMessage from "../Commons/SimpleAlertMessage";
 import TextField from "@material-ui/core/TextField";
 import axios from 'axios';
 import es from 'yup-es';
 import { useFormik } from 'formik';
 import { useNavigate } from 'react-router-dom';
 
-function UserForm() {
+function LoginUserForm() {
     yup.setLocale(es);
     const navigate = useNavigate();
-    const [userTypes, setUserTypes] = useState([]);
     const childStateRef = useRef();
 
     const showErrorDialog = (message) => {
@@ -27,8 +26,7 @@ function UserForm() {
     useEffect(() => {
         axios(BASE_USER_TYPES_URL)
             .then((response) => {
-                setUserTypes(response.data);
-                formik.values.userTypeId = response.data.find(userType => userType.description === CLIENT_USER_TYPE_DESCRIPTION)._id;
+                formik.values.userTypeCode = response.data.find(userType => userType.description === CLIENT_USER_TYPE_DESCRIPTION).code;
             })
     }, []);
 
@@ -95,7 +93,7 @@ function UserForm() {
                         fullWidth
                         id="password"
                         name="password"
-                        label="Password"
+                        label="Contraseña"
                         type="password"
                         value={formik.values.password}
                         onChange={formik.handleChange}
@@ -133,4 +131,4 @@ function UserForm() {
     )
 }
 
-export default UserForm;
+export default LoginUserForm;

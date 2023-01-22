@@ -71,7 +71,7 @@ function AccountForm() {
                     }).catch(error => {
                         handleErrorResponse(error);
                     });
-                }
+            }
             else {
                 axios
                     .patch(`${BASE_ACCOUNTS_URL}/${accountId}`, values)
@@ -109,16 +109,16 @@ function AccountForm() {
                 formik.values.offLimitAmount = response.data.find((accountType) => accountType.code === CUENTA_CORRIENTE_ACCOUNT_TYPE_CODE).offLimitAmount;
             })
 
-        axios
-            .get(`${BASE_ACCOUNTS_URL}/${accountId}`)
-            .then((response) => {
-                formik.values.clientId = response.data.client._id;
-                formik.values.accountTypeCode = response.data.accountType.code;
-                formik.values.alias = response.data.alias;
-                formik.values.offLimitAmount = response.data.offLimitAmount;
-
-                formik.handleChange();
-            })
+        if (accountId != null) {
+            axios
+                .get(`${BASE_ACCOUNTS_URL}/${accountId}`)
+                .then((response) => {
+                    formik.setFieldValue("clientId", response.data.client._id);
+                    formik.setFieldValue("accountTypeCode", response.data.accountType.code);
+                    formik.setFieldValue("alias", response.data.alias);
+                    formik.setFieldValue("offLimitAmount", response.data.offLimitAmount);
+                })
+        }
     }, []);
 
     return (

@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Accounts from './pages/Accounts/Accounts';
 import Clients from './pages/Clients/Clients';
 import Home from './pages/Home';
+import LoginNewUser from './pages/Users/LoginNewUser';
 import NewAccount from './pages/Accounts/NewAccount';
 import NewClient from './pages/Clients/NewClient';
 import NewUser from './pages/Users/NewUser';
@@ -23,8 +24,9 @@ function App() {
                 <Route path="/clientes/nuevo" element={<NewClient />} />
                 <Route path="/clientes/:clientId/editar" element={<NewClient />} />
                 <Route path="/usuarios" element={<Users />} />
-                <Route path="/usuarios/nuevo" element={<Accounts />} />
-                <Route path="/login/usuarios/nuevo" element={<NewUser />} />
+                <Route path="/usuarios/:userId/editar" element={<NewUser />} />
+                <Route path="/usuarios/nuevo" element={<NewUser />} />
+                <Route path="/login/usuarios/nuevo" element={<LoginNewUser />} />
                 <Route path="*" element={<PageNotFound />} />
             </Routes>
         </BrowserRouter>

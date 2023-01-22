@@ -5,6 +5,7 @@ import Box from '@mui/material/Box';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import { DataGrid } from '@mui/x-data-grid';
 import DisabledByDefaultIcon from '@mui/icons-material/DisabledByDefault';
+import EditIcon from '@mui/icons-material/Edit';
 import { Fragment } from 'react';
 import Grid from '@mui/material/Grid';
 import IconButton from '@mui/material/IconButton';
@@ -34,6 +35,17 @@ const renderActionsButton = (params) => {
                     }}
                 >
                     {params.row.enable ? <DisabledByDefaultIcon /> : <CheckBoxIcon />}
+                </IconButton>
+            </Tooltip>
+            <Tooltip title="Editar">
+                <IconButton
+                    variant="contained"
+                    color="primary"
+                    onClick={() => {
+                        window.location.replace(`/usuarios/${params.row._id}/editar`);
+                    }}
+                >
+                    <EditIcon />
                 </IconButton>
             </Tooltip>
         </Fragment>
