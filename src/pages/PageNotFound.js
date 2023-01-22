@@ -1,9 +1,10 @@
+import { Fragment } from 'react';
 import React from 'react';
 
 const PageNotFound = () => (
-    <section className="Page">
-        <h3>Not Found</h3>
-    </section>
+    <Fragment>
+        404 Page not found
+    </Fragment>
 )
 
 export default PageNotFound;
