@@ -1,10 +1,17 @@
-import { Fragment } from 'react';
+import './PageNotFound.css';
+
 import React from 'react';
+import { Typography } from '@mui/material';
 
 const PageNotFound = () => (
-    <Fragment>
-        404 Page not found
-    </Fragment>
+    <div className='center-div'>
+        <Typography variant="h1">
+            404
+        </Typography>
+        <Typography variant="h2">
+            P&aacute;gina no encontrada
+        </Typography>
+    </div>
 )
 
 export default PageNotFound;
