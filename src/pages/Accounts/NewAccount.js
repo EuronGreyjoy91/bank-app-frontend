@@ -1,14 +1,24 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
+import { useNavigate, useParams } from "react-router-dom";
+import { userIsClient, userIsLogged } from '../../Commons';
 
 import AccountForm from '../../components/AdminComponents/Accounts/AccountForm';
 import AdminNavbar from '../../components/AdminComponents/AdminNavbar';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import { Typography } from '@mui/material';
-import { useParams } from "react-router-dom";
 
 const NewAccount = () => {
     const { accountId } = useParams();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!userIsLogged())
+            navigate('/');
+
+        if (userIsClient())
+            navigate('/forbidden');
+    }, []);
 
     return (
         <Fragment>

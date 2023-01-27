@@ -1,5 +1,6 @@
-import { Link, useSearchParams } from 'react-router-dom';
-import React, { Fragment } from 'react';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import React, { Fragment, useEffect } from 'react';
+import { userIsAdmin, userIsLogged } from '../../Commons';
 
 import AddIcon from '@mui/icons-material/Add';
 import AlertWithTimer from "../../components/Commons/AlertWithTimer";
@@ -13,6 +14,16 @@ import { Typography } from '@mui/material';
 
 function MyAccounts() {
     const [searchParams] = useSearchParams();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!userIsLogged())
+            navigate('/');
+
+        if (userIsAdmin()) {
+            navigate('/forbidden');
+        }
+    }, []);
 
     return (
         <Fragment>

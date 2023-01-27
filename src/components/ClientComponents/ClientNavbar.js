@@ -1,10 +1,11 @@
+import { Link, useNavigate } from 'react-router-dom';
+
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import IconButton from '@mui/material/IconButton';
-import { Link } from 'react-router-dom';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -13,8 +14,10 @@ import SavingsIcon from '@mui/icons-material/Savings';
 import TimelineOutlinedIcon from '@mui/icons-material/TimelineOutlined';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
+import { logout } from '../../Commons';
 
 function ClientNavbar() {
+    const navigate = useNavigate();
     const [anchorElNav, setAnchorElNav] = React.useState(null);
 
     const handleOpenNavMenu = (event) => {
@@ -24,6 +27,11 @@ function ClientNavbar() {
     const handleCloseNavMenu = () => {
         setAnchorElNav(null);
     };
+
+    const handleLogout = () => {
+        logout();
+        navigate('/');
+    }
 
     return (
         <AppBar position="static">
@@ -83,6 +91,9 @@ function ClientNavbar() {
                             <MenuItem component="a" href="/63c42da141fc849de18096f6/movimientos" key={'Movimientos'} onClick={handleCloseNavMenu}>
                                 <Typography textAlign="center">Movimientos</Typography>
                             </MenuItem>
+                            <MenuItem key={'Logout'} onClick={handleLogout}>
+                                <Typography textAlign="center">Logout</Typography>
+                            </MenuItem>
                         </Menu>
                     </Box>
                     <AccountBalanceIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
@@ -122,6 +133,13 @@ function ClientNavbar() {
                         >
                             Movimientos&nbsp;
                             <TimelineOutlinedIcon style={{ verticalAlign: "middle" }}></TimelineOutlinedIcon>
+                        </Button>
+                        <Button
+                            color="inherit"
+                            onClick={handleLogout}
+                            sx={{ my: 2, color: 'white', display: 'block', marginLeft: 'auto' }}
+                        >
+                            Logout
                         </Button>
                     </Box>
                 </Toolbar>

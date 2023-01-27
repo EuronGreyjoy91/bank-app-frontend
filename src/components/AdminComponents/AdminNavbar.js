@@ -14,8 +14,11 @@ import React from 'react';
 import SavingsIcon from '@mui/icons-material/Savings';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
+import { logout } from '../../Commons';
+import { useNavigate } from "react-router-dom";
 
 function AdminNavbar() {
+    const navigate = useNavigate();
     const [anchorElNav, setAnchorElNav] = React.useState(null);
 
     const handleOpenNavMenu = (event) => {
@@ -25,6 +28,11 @@ function AdminNavbar() {
     const handleCloseNavMenu = () => {
         setAnchorElNav(null);
     };
+
+    const handleLogout = () => {
+        logout();
+        navigate('/');
+    }
 
     return (
         <AppBar position="static">
@@ -87,6 +95,9 @@ function AdminNavbar() {
                             <MenuItem component="a" href="/usuarios" key={'Usuarios'} onClick={handleCloseNavMenu}>
                                 <Typography textAlign="center">Usuarios</Typography>
                             </MenuItem>
+                            <MenuItem key={'Logout'} onClick={handleLogout}>
+                                <Typography textAlign="center">Logout</Typography>
+                            </MenuItem>
                         </Menu>
                     </Box>
                     <AccountBalanceIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
@@ -135,6 +146,13 @@ function AdminNavbar() {
                         >
                             Usuarios
                             <FaceIcon style={{ verticalAlign: "middle" }}></FaceIcon>
+                        </Button>
+                        <Button
+                            color="inherit"
+                            onClick={handleLogout}
+                            sx={{ my: 2, color: 'white', display: 'block', marginLeft: 'auto' }}
+                        >
+                            Logout
                         </Button>
                     </Box>
                 </Toolbar>

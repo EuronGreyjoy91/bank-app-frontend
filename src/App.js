@@ -4,10 +4,11 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import Accounts from './pages/Accounts/Accounts';
 import Clients from './pages/Clients/Clients';
+import Forbidden from './pages/Forbidden';
 import Home from './pages/Home';
 import LoginNewUser from './pages/Users/LoginNewUser';
 import MyAccounts from './pages/Accounts/MyAccounts';
-import MyNewAccount from './pages/Clients/MyNewAccount';
+import MyNewAccount from './pages/Accounts/MyNewAccount';
 import NewAccount from './pages/Accounts/NewAccount';
 import NewClient from './pages/Clients/NewClient';
 import NewUser from './pages/Users/NewUser';
@@ -32,6 +33,7 @@ function App() {
                 <Route path="/usuarios/:userId/editar" element={<NewUser />} />
                 <Route path="/usuarios/nuevo" element={<NewUser />} />
                 <Route path="/login/usuarios/nuevo" element={<LoginNewUser />} />
+                <Route path="/forbidden" element={<Forbidden />} />
                 <Route path="*" element={<PageNotFound />} />
             </Routes>
         </BrowserRouter>

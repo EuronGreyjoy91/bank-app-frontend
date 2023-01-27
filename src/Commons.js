@@ -16,7 +16,7 @@ export const PERSONA_FISICA_CLIENT_TYPE_CODE = "PERSONA_FISICA";
 export const PERSONA_JURIDICA_CLIENT_TYPE_CODE = "PERSONA_JURIDICA";
 
 //ERROR CODES
-export const VALIDATION_ERROR = { status: 400, code: 'VALIDATION_ERROR'}
+export const VALIDATION_ERROR = { status: 400, code: 'VALIDATION_ERROR' }
 export const REPEATED_DOCUMENT_ERROR = { status: 400, code: 'REPEATED_DOCUMENT_ERROR' };
 export const REPEATED_ALIAS_ERROR = { status: 400, code: 'REPEATED_ALIAS_ERROR' };
 export const REPEATED_ACCOUNT_TYPE_ERROR = { status: 400, code: 'REPEATED_ACCOUNT_TYPE_ERROR' };
@@ -36,4 +36,22 @@ export const USERNAME_FILTER = "userName";
 //UTILS
 export function objectsToUrlParamsString(objects) {
     return objects.map((object) => `${object.name}=${object.value}`).join('&');
+}
+
+export function userIsLogged() {
+    return localStorage.getItem('isLogged') != null && localStorage.getItem('isLogged') === 'true';
+}
+
+export function userIsAdmin() {
+    return userIsLogged() && JSON.parse(localStorage.getItem('user')).userType === 'ADMIN';
+}
+
+export function userIsClient() {
+    return userIsLogged() && JSON.parse(localStorage.getItem('user')).userType === 'CLIENT';
+}
+
+export function logout() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    localStorage.setItem('isLogged', false);
 }

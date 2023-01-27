@@ -1,5 +1,6 @@
-import { Link, useSearchParams } from 'react-router-dom';
-import React, { Fragment } from 'react';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import React, { Fragment, useEffect } from 'react';
+import { userIsClient, userIsLogged } from '../../Commons';
 
 import AddIcon from '@mui/icons-material/Add';
 import AdminNavbar from '../../components/AdminComponents/AdminNavbar';
@@ -13,6 +14,15 @@ import { Typography } from '@mui/material';
 
 function Clients() {
     const [searchParams] = useSearchParams();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!userIsLogged())
+            navigate('/');
+
+        if (userIsClient())
+            navigate('/forbidden');
+    }, []);
 
     return (
         <Fragment>

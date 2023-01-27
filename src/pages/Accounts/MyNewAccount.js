@@ -1,18 +1,29 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
+import { useNavigate, useParams } from "react-router-dom";
+import { userIsAdmin, userIsLogged } from '../../Commons';
 
-import AdminNavbar from '../../components/AdminComponents/AdminNavbar';
+import ClientNavbar from '../../components/ClientComponents/ClientNavbar';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import MyAccountForm from '../../components/ClientComponents/MyAccounts/MyAccountForm';
 import { Typography } from '@mui/material';
-import { useParams } from "react-router-dom";
 
 const MyNewAccount = () => {
     const { accountId } = useParams();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!userIsLogged())
+            navigate('/');
+
+        if (userIsAdmin()) {
+            navigate('/forbidden');
+        }
+    }, []);
 
     return (
         <Fragment>
-            <AdminNavbar></AdminNavbar>
+            <ClientNavbar></ClientNavbar>
             <Container maxWidth={false}>
                 <Grid container spacing={2} alignItems="center">
                     <Grid style={{ paddingTop: "40px" }} item xs={8}>
