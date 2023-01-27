@@ -1,6 +1,6 @@
 import * as yup from 'yup';
 
-import { BASE_CLIENTS_URL, BASE_CLIENT_TYPES_URL, BASE_USERS_URL, PERSONA_JURIDICA_CLIENT_TYPE_CODE, REPEATED_DOCUMENT_ERROR, VALIDATION_ERROR } from '../../../Commons';
+import { BASE_CLIENTS_URL, BASE_CLIENT_TYPES_URL, PERSONA_JURIDICA_CLIENT_TYPE_CODE, REPEATED_DOCUMENT_ERROR, VALIDATION_ERROR } from '../../Commons';
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -10,18 +10,18 @@ import FormHelperText from '@mui/material/FormHelperText';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
-import SimpleAlertMessage from '../../Commons/SimpleAlertMessage';
+import SimpleAlertMessage from '../Commons/SimpleAlertMessage';
 import Stack from '@mui/material/Stack';
 import TextField from "@material-ui/core/TextField";
 import axios from 'axios';
 import es from 'yup-es';
+import { logout } from '../../Commons';
 import { useFormik } from 'formik';
 
-function ClientForm() {
+function CompleteDataForm() {
     yup.setLocale(es);
-    const { clientId } = useParams();
+    const { userId } = useParams();
     const [clientTypes, setClientTypes] = useState([]);
-    const [users, setUsers] = useState([]);
 
     const childStateRef = useRef();
 
@@ -33,11 +33,8 @@ function ClientForm() {
     const navigate = useNavigate();
 
     const validationSchema = yup.object({
-        userId: yup
-            .string('Seleccione un usuario')
-            .required('El usuario es requerido'),
         clientTypeCode: yup
-            .string('Seleccione un tipo de cliente')
+            .string('Selecciona un tipo de cliente')
             .required('El tipo de cliente es requerido'),
         name: yup
             .string('Ingrese un nombre')
@@ -69,7 +66,6 @@ function ClientForm() {
 
     const formik = useFormik({
         initialValues: {
-            userId: '',
             clientTypeCode: '',
             name: '',
             lastName: '',
@@ -86,24 +82,16 @@ function ClientForm() {
             if (values.adress === '')
                 delete values.adress;
 
-            if (clientId == null) {
-                axios
-                    .post(BASE_CLIENTS_URL, values)
-                    .then((response) => {
-                        navigate('/clientes?alertStatus=success&message=Cliente guardado con exito', { replace: true });
-                    }).catch(error => {
-                        handleErrorResponse(error);
-                    });
-            }
-            else {
-                axios
-                    .patch(`${BASE_CLIENTS_URL}/${clientId}`, values)
-                    .then((response) => {
-                        navigate('/clientes?alertStatus=success&message=Cliente guardado con exito', { replace: true });
-                    }).catch(error => {
-                        handleErrorResponse(error);
-                    });
-            }
+            values.userId = userId;
+
+            axios
+                .post(BASE_CLIENTS_URL, values)
+                .then((response) => {
+                    logout();
+                    navigate('/?alertStatus=success&message=Datos actualizados con exito. Vuelva a ingresar', { replace: true });
+                }).catch(error => {
+                    handleErrorResponse(error);
+                });
         },
     });
 
@@ -121,58 +109,12 @@ function ClientForm() {
             .get(BASE_CLIENT_TYPES_URL)
             .then((response) => {
                 setClientTypes(response.data);
-            });
-
-        axios
-            .get(BASE_USERS_URL)
-            .then((response) => {
-                setUsers(response.data);
             })
-
-        if (clientId != null) {
-            axios
-                .get(`${BASE_CLIENTS_URL}/${clientId}`)
-                .then((response) => {
-                    formik.setFieldValue("userId", response.data.user._id);
-                    formik.setFieldValue("name", response.data.name);
-                    formik.setFieldValue("lastName", response.data.lastName);
-                    formik.setFieldValue("document", response.data.document);
-                    formik.setFieldValue("cuitCuil", response.data.cuitCuil);
-                    formik.setFieldValue("clientTypeCode", response.data.clientType.code);
-
-                    if (response.data.clientType.code === PERSONA_JURIDICA_CLIENT_TYPE_CODE) {
-                        formik.setFieldValue("businessName", response.data.businessName);
-                        formik.setFieldValue("adress", response.data.adress);
-                    }
-                })
-        }
     }, []);
 
     return (
         <form onSubmit={formik.handleSubmit}>
             <Stack spacing={2}>
-                <FormControl fullWidth>
-                    <InputLabel id="user-id-label">Usuario</InputLabel>
-                    <Select
-                        labelId="user-label"
-                        id="userId"
-                        name="userId"
-                        value={formik.values.userId}
-                        label="Usuario"
-                        onChange={formik.handleChange}
-                        error={formik.touched.userId && Boolean(formik.errors.userId)}
-                    >
-                        <MenuItem value="">
-                            <em>Seleccione una opci&oacute;n</em>
-                        </MenuItem>
-                        {
-                            users.map((user) => {
-                                return <MenuItem key={user._id} value={user._id}>{user.userName}</MenuItem>
-                            })
-                        }
-                    </Select>
-                    {formik.touched.userId && formik.errors.userId && <FormHelperText>{formik.errors.userId}</FormHelperText>}
-                </FormControl>
                 <FormControl fullWidth>
                     <InputLabel id="client-type-id-label">Tipo de cliente</InputLabel>
                     <Select
@@ -280,4 +222,4 @@ function ClientForm() {
     );
 }
 
-export default ClientForm;
+export default CompleteDataForm;

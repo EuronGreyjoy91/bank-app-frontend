@@ -7,8 +7,10 @@ import axios from 'axios';
 function MyAccountsSearchBox() {
     const [accounts, setAccounts] = useState([]);
 
+    const user = JSON.parse(localStorage.getItem('user'));
+
     useEffect(() => {
-        axios(`${BASE_CLIENTS_URL}/63c42da141fc849de18096f6/accounts`)
+        axios(`${BASE_CLIENTS_URL}/${user.clientId}/accounts`)
             .then((response) => {
                 setAccounts(response.data);
             })

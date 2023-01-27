@@ -33,6 +33,8 @@ function ClientNavbar() {
         navigate('/');
     }
 
+    const user = JSON.parse(localStorage.getItem('user'));
+
     return (
         <AppBar position="static">
             <Container maxWidth="auto">
@@ -85,10 +87,10 @@ function ClientNavbar() {
                                 display: { xs: 'block', md: 'none' },
                             }}
                         >
-                            <MenuItem component="a" href="/63c42da141fc849de18096f6/cuentas" key={'Mis cuentas'} onClick={handleCloseNavMenu}>
+                            <MenuItem component="a" href={`/${user.clientId}/cuentas`} key={'Mis cuentas'} onClick={handleCloseNavMenu}>
                                 <Typography textAlign="center">Mis cuentas</Typography>
                             </MenuItem>
-                            <MenuItem component="a" href="/63c42da141fc849de18096f6/movimientos" key={'Movimientos'} onClick={handleCloseNavMenu}>
+                            <MenuItem component="a" href={`/${user.clientId}/movimientos`} key={'Movimientos'} onClick={handleCloseNavMenu}>
                                 <Typography textAlign="center">Movimientos</Typography>
                             </MenuItem>
                             <MenuItem key={'Logout'} onClick={handleLogout}>
@@ -117,7 +119,7 @@ function ClientNavbar() {
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         <Button
-                            component={Link} to="/63c42da141fc849de18096f6/cuentas"
+                            component={Link} to={`/${user.clientId}/cuentas`}
                             key={'Mis cuentas'}
                             onClick={handleCloseNavMenu}
                             sx={{ my: 2, color: 'white', display: 'block' }}
@@ -126,7 +128,7 @@ function ClientNavbar() {
                             <SavingsIcon style={{ verticalAlign: "middle" }}></SavingsIcon>
                         </Button>
                         <Button
-                            component={Link} to="/63c42da141fc849de18096f6/movimientos"
+                            component={Link} to={`/${user.clientId}/movimientos`}
                             key={'Movimientos'}
                             onClick={handleCloseNavMenu}
                             sx={{ my: 2, color: 'white', display: 'block' }}

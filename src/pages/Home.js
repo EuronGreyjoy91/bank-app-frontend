@@ -60,8 +60,10 @@ const Home = () => {
 
                     if (response.data.user.userType === 'ADMIN')
                         navigate('/cuentas', { replace: true });
+                    else if (response.data.user.clientId == null)
+                        navigate(`/${response.data.user.id}/completar-datos`, { replace: true });
                     else
-                        navigate('/63b4d7f24549247ba9cf4909/cuentas', { replace: true });
+                        navigate(`/${response.data.user.clientId}/cuentas`, { replace: true });
                         
                 }).catch(error => {
                     handleErrorResponse(error);
@@ -82,7 +84,7 @@ const Home = () => {
         <Fragment>
             <LoginNavbar></LoginNavbar>
             {
-                searchParams.get('alertStatus') && <AlertWithTimer severity={searchParams.get('alertStatus')} message={'Usuario creado con exito!'}></AlertWithTimer>
+                searchParams.get('alertStatus') && <AlertWithTimer severity={searchParams.get('alertStatus')} message={searchParams.get('alertStatus')}></AlertWithTimer>
             }
             <Container>
                 <Grid container spacing={2} alignItems="center">

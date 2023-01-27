@@ -1,6 +1,6 @@
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import React, { Fragment, useEffect } from 'react';
-import { userIsAdmin, userIsLogged } from '../../Commons';
+import { clientHasMissingData, userIsAdmin, userIsLogged } from '../../Commons';
 
 import AddIcon from '@mui/icons-material/Add';
 import AlertWithTimer from "../../components/Commons/AlertWithTimer";
@@ -20,10 +20,14 @@ function MyAccounts() {
         if (!userIsLogged())
             navigate('/');
 
-        if (userIsAdmin()) {
+        if (userIsAdmin())
             navigate('/forbidden');
-        }
+
+        if (clientHasMissingData())
+            navigate('/completar-datos');
     }, []);
+
+    const user = JSON.parse(localStorage.getItem('user'));
 
     return (
         <Fragment>
@@ -40,7 +44,7 @@ function MyAccounts() {
                     </Grid>
                     <Grid style={{ paddingTop: "40px" }} item xs={4}>
                         <Box textAlign='right'>
-                            <Button component={Link} to="/63c42da141fc849de18096f6/cuentas/nueva" variant="contained" color="primary">
+                            <Button component={Link} to={`/${user.clientId}/cuentas/nueva`} variant="contained" color="primary">
                                 Abrir cuenta <AddIcon></AddIcon>
                             </Button>
                         </Box>

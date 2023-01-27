@@ -60,7 +60,7 @@ function LoginUserForm() {
             axios
                 .post(BASE_USERS_URL, values)
                 .then((response) => {
-                    navigate('/?alertStatus=success', { replace: true });
+                    navigate('/?alertStatus=success&message=Usuario creado con exito', { replace: true });
                 })
                 .catch(error => {
                     if (error.response.data.code === REPEATED_USERNAME_ERROR.code)

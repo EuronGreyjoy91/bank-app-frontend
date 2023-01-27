@@ -10,6 +10,8 @@ import Tooltip from '@mui/material/Tooltip';
 import moment from 'moment';
 
 const renderActionsButton = (params) => {
+    const user = JSON.parse(localStorage.getItem('user'));
+
     return (
         <Fragment>
             <Tooltip title="Editar">
@@ -17,7 +19,7 @@ const renderActionsButton = (params) => {
                     variant="contained"
                     color="primary"
                     onClick={() => {
-                        window.location.replace(`/63c42da141fc849de18096f6/cuentas/${params.row._id}/editar`);
+                        window.location.replace(`/${user.clientId}/cuentas/${params.row._id}/editar`);
                     }}
                 >
                     <EditIcon />

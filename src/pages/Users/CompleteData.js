@@ -1,42 +1,36 @@
 import React, { Fragment, useEffect } from 'react';
-import { clientHasMissingData, userIsAdmin, userIsLogged } from '../../Commons';
 import { useNavigate, useParams } from "react-router-dom";
 
-import ClientNavbar from '../../components/ClientComponents/ClientNavbar';
+import AdminNavbar from '../../components/AdminComponents/AdminNavbar';
+import CompleteDataForm from '../../components/ClientComponents/CompleteDataForm';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
-import MyAccountForm from '../../components/ClientComponents/MyAccounts/MyAccountForm';
 import { Typography } from '@mui/material';
+import { userIsLogged } from '../../Commons';
 
-const MyNewAccount = () => {
-    const { accountId } = useParams();
+const CompleteData = () => {
+    const { userId } = useParams();
     const navigate = useNavigate();
 
     useEffect(() => {
         if (!userIsLogged())
             navigate('/');
-
-        if (userIsAdmin())
-            navigate('/forbidden');
-
-        if (clientHasMissingData())
-            navigate('/completar-datos');
     }, []);
-
+    
     return (
         <Fragment>
-            <ClientNavbar></ClientNavbar>
+            <AdminNavbar></AdminNavbar>
             <Container maxWidth={false}>
                 <Grid container spacing={2} alignItems="center">
                     <Grid style={{ paddingTop: "40px" }} item xs={8}>
                         <Typography variant="h4">
-                            {accountId != null ? "Editar cuenta" : "Nueva cuenta"}
+                            Completar informaci&oacute;n
                         </Typography>
                     </Grid>
                 </Grid>
                 <Grid container spacing={2} alignItems="center">
                     <Grid style={{ paddingTop: "40px" }} item xs={12} md={4}>
-                        <MyAccountForm></MyAccountForm>
+                        <CompleteDataForm></CompleteDataForm>
                     </Grid>
                 </Grid>
             </Container>
@@ -44,4 +38,4 @@ const MyNewAccount = () => {
     )
 };
 
-export default MyNewAccount;
+export default CompleteData;

@@ -21,6 +21,7 @@ function MyAccountForm() {
     yup.setLocale(es);
     const { accountId } = useParams();
     const [accountTypes, setAccountTypes] = useState([]);
+    const user = JSON.parse(localStorage.getItem('user'));
 
     const childStateRef = useRef();
 
@@ -51,7 +52,7 @@ function MyAccountForm() {
             if (values.alias === '')
                 delete values.alias;
 
-            formik.values.clientId = "63c42da141fc849de18096f6";
+            formik.values.clientId = user.clientId;
 
             if (accountId == null) {
                 axios

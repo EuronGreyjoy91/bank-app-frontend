@@ -50,6 +50,10 @@ export function userIsClient() {
     return userIsLogged() && JSON.parse(localStorage.getItem('user')).userType === 'CLIENT';
 }
 
+export function clientHasMissingData() {
+    return JSON.parse(localStorage.getItem('user')).clientId == null;
+}
+
 export function logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
