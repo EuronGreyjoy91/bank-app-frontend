@@ -9,9 +9,12 @@ import Forbidden from './pages/Forbidden';
 import Home from './pages/Home';
 import LoginNewUser from './pages/Users/LoginNewUser';
 import MyAccounts from './pages/Accounts/MyAccounts';
+import MyMovements from './pages/Movements/MyMovements';
 import MyNewAccount from './pages/Accounts/MyNewAccount';
 import NewAccount from './pages/Accounts/NewAccount';
 import NewClient from './pages/Clients/NewClient';
+import NewExtractionDeposit from './pages/Movements/NewExtractionDeposit';
+import NewTransfer from './pages/Movements/NewTransfer';
 import NewUser from './pages/Users/NewUser';
 import PageNotFound from './pages/PageNotFound.js';
 import Users from './pages/Users/Users';
@@ -35,6 +38,9 @@ function App() {
                 <Route path="/usuarios/nuevo" element={<NewUser />} />
                 <Route path="/login/usuarios/nuevo" element={<LoginNewUser />} />
                 <Route path="/:userId/completar-datos" element={<CompleteData />} />
+                <Route path="/:clientId/movimientos" element={<MyMovements />} />
+                <Route path="/:clientId/movimientos/nuevo" element={<NewExtractionDeposit />} />
+                <Route path="/:clientId/transferencias/nueva" element={<NewTransfer />} />
                 <Route path="/forbidden" element={<Forbidden />} />
                 <Route path="*" element={<PageNotFound />} />
             </Routes>

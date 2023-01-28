@@ -62,7 +62,7 @@ function MyAccountForm() {
                         }
                     })
                     .then((response) => {
-                        navigate('/63c42da141fc849de18096f6/cuentas?alertStatus=success&message=Cuenta guardada con exito', { replace: true });
+                        navigate(`/${user.clientId}/cuentas?alertStatus=success&message=Cuenta guardada con exito`, { replace: true });
                     }).catch(error => {
                         handleErrorResponse(error);
                     });
@@ -75,7 +75,7 @@ function MyAccountForm() {
                         }
                     })
                     .then((response) => {
-                        navigate('/63c42da141fc849de18096f6/cuentas?alertStatus=success&message=Cuenta guardada con exito', { replace: true });
+                        navigate(`/${user.clientId}/cuentas?alertStatus=success&message=Cuenta guardada con exito`, { replace: true });
                     }).catch(error => {
                         handleErrorResponse(error);
                     });

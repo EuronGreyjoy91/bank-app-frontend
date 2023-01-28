@@ -6,6 +6,8 @@ export const BASE_CLIENTS_URL = `${BASE_URL_PATH}/clients`;
 export const BASE_CLIENT_TYPES_URL = `${BASE_URL_PATH}/clientTypes`;
 export const BASE_USER_TYPES_URL = `${BASE_URL_PATH}/userTypes`;
 export const BASE_USERS_URL = `${BASE_URL_PATH}/users`;
+export const BASE_MOVEMENT_URL = `${BASE_URL_PATH}/movements`;
+export const BASE_MOVEMENT_TYPES_URL = `${BASE_URL_PATH}/movementTypes`;
 
 //VALUES
 export const ADMIN_USER_TYPE_DESCRIPTION = 'Admin';
@@ -22,6 +24,7 @@ export const REPEATED_ALIAS_ERROR = { status: 400, code: 'REPEATED_ALIAS_ERROR' 
 export const REPEATED_ACCOUNT_TYPE_ERROR = { status: 400, code: 'REPEATED_ACCOUNT_TYPE_ERROR' };
 export const REPEATED_USERNAME_ERROR = { status: 400, code: 'REPEATED_USERNAME_ERROR' };
 export const NOT_FOUND_ERROR = { status: 404, code: 'NOT_FOUND_ERROR' }
+export const INVALID_AMOUNT_ERROR = { status: 400, code: 'INVALID_AMOUNT_ERROR' }
 
 //FILTERS NAME
 export const ACCOUNT_TYPE_ID_FILTER = "accountTypeId";
@@ -32,6 +35,7 @@ export const CUIT_CUIL_FILTER = "cuitCuil";
 export const DOCUMENT_FILTER = "document";
 export const USER_TYPE_ID_FILTER = "userTypeId";
 export const USERNAME_FILTER = "userName";
+export const MOVEMENT_TYPE_ID_FILTER = "movementTypeId";
 
 //UTILS
 export function objectsToUrlParamsString(objects) {
