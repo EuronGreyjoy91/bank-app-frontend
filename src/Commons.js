@@ -54,6 +54,10 @@ export function clientHasMissingData() {
     return JSON.parse(localStorage.getItem('user')).clientId == null;
 }
 
+export function authHeader() {
+    return localStorage.getItem('token');
+}
+
 export function logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('user');

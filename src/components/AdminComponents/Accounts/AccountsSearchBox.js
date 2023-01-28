@@ -1,4 +1,4 @@
-import { ACCOUNT_NUMBER_FILTER, ACCOUNT_TYPE_ID_FILTER, ALIAS_FILTER, BASE_ACCOUNTS_URL, BASE_ACCOUNT_TYPES_URL, objectsToUrlParamsString } from '../../../Commons';
+import { ACCOUNT_NUMBER_FILTER, ACCOUNT_TYPE_ID_FILTER, ALIAS_FILTER, BASE_ACCOUNTS_URL, BASE_ACCOUNT_TYPES_URL, authHeader, objectsToUrlParamsString } from '../../../Commons';
 import React, { Fragment, useEffect, useState } from 'react';
 
 import AccountsTable from './AccountsTable';
@@ -35,10 +35,13 @@ function AccountsSearchBox() {
     };
 
     useEffect(() => {
-        axios(BASE_ACCOUNT_TYPES_URL)
-            .then((response) => {
-                setAccountTypes(response.data);
-            })
+        axios(BASE_ACCOUNT_TYPES_URL, {
+            headers: {
+                'Authorization': `Bearer ${authHeader()}`
+            }
+        }).then((response) => {
+            setAccountTypes(response.data);
+        })
     }, []);
 
     useEffect(() => {
@@ -69,8 +72,11 @@ function AccountsSearchBox() {
     }
 
     const searchAccounts = (filters) => {
-        axios(`${BASE_ACCOUNTS_URL}?${filters}`)
-        .then((response) => {
+        axios.get(`${BASE_ACCOUNTS_URL}?${filters}`, {
+            headers: {
+                'Authorization': `Bearer ${authHeader()}`
+            }
+        }).then((response) => {
             setAccounts(response.data);
         })
     }
@@ -115,7 +121,7 @@ function AccountsSearchBox() {
                             </Select>
                         </FormControl>
                         <TextField id="alias" label="Alias" variant="outlined" onChange={handleAliasChange} value={alias} />
-                        <TextField id="accountNumber" label="Nº de cuenta" variant="outlined" value = {accountNumber} onChange={handleAccountNumberChange} />
+                        <TextField id="accountNumber" label="Nº de cuenta" variant="outlined" value={accountNumber} onChange={handleAccountNumberChange} />
                     </Box>
                 </Grid>
             </Grid>

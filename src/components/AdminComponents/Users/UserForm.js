@@ -1,6 +1,6 @@
 import * as yup from 'yup';
 
-import { BASE_USERS_URL, BASE_USER_TYPES_URL, REPEATED_USERNAME_ERROR } from '../../../Commons';
+import { BASE_USERS_URL, BASE_USER_TYPES_URL, REPEATED_USERNAME_ERROR, authHeader } from '../../../Commons';
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -64,7 +64,11 @@ function UserForm() {
         onSubmit: (values) => {
             if (userId == null) {
                 axios
-                    .post(BASE_USERS_URL, values)
+                    .post(BASE_USERS_URL, values, {
+                        headers: {
+                            'Authorization': `Bearer ${authHeader()}`
+                        }
+                    })
                     .then((response) => {
                         navigate('/usuarios/?alertStatus=success&message=Usuario guardado con exito', { replace: true });
                     })
@@ -74,7 +78,11 @@ function UserForm() {
             }
             else {
                 axios
-                    .patch(`${BASE_USERS_URL}/${userId}`, values)
+                    .patch(`${BASE_USERS_URL}/${userId}`, values, {
+                        headers: {
+                            'Authorization': `Bearer ${authHeader()}`
+                        }
+                    })
                     .then((response) => {
                         navigate('/usuarios?alertStatus=success&message=Usuario guardado con exito', { replace: true });
                     }).catch(error => {
@@ -93,7 +101,11 @@ function UserForm() {
 
     useEffect(() => {
         axios
-            .get(BASE_USER_TYPES_URL)
+            .get(BASE_USER_TYPES_URL, {
+                headers: {
+                    'Authorization': `Bearer ${authHeader()}`
+                }
+            })
             .then((response) => {
                 setUserTypes(response.data);
 

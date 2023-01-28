@@ -1,6 +1,6 @@
 import * as yup from 'yup';
 
-import { BASE_CLIENTS_URL, BASE_CLIENT_TYPES_URL, BASE_USERS_URL, PERSONA_JURIDICA_CLIENT_TYPE_CODE, REPEATED_DOCUMENT_ERROR, VALIDATION_ERROR } from '../../../Commons';
+import { BASE_CLIENTS_URL, BASE_CLIENT_TYPES_URL, BASE_USERS_URL, PERSONA_JURIDICA_CLIENT_TYPE_CODE, REPEATED_DOCUMENT_ERROR, VALIDATION_ERROR, authHeader } from '../../../Commons';
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -88,7 +88,11 @@ function ClientForm() {
 
             if (clientId == null) {
                 axios
-                    .post(BASE_CLIENTS_URL, values)
+                    .post(BASE_CLIENTS_URL, values, {
+                        headers: {
+                            'Authorization': `Bearer ${authHeader()}`
+                        }
+                    })
                     .then((response) => {
                         navigate('/clientes?alertStatus=success&message=Cliente guardado con exito', { replace: true });
                     }).catch(error => {
@@ -97,7 +101,11 @@ function ClientForm() {
             }
             else {
                 axios
-                    .patch(`${BASE_CLIENTS_URL}/${clientId}`, values)
+                    .patch(`${BASE_CLIENTS_URL}/${clientId}`, values, {
+                        headers: {
+                            'Authorization': `Bearer ${authHeader()}`
+                        }
+                    })
                     .then((response) => {
                         navigate('/clientes?alertStatus=success&message=Cliente guardado con exito', { replace: true });
                     }).catch(error => {
@@ -118,20 +126,32 @@ function ClientForm() {
 
     useEffect(() => {
         axios
-            .get(BASE_CLIENT_TYPES_URL)
+            .get(BASE_CLIENT_TYPES_URL, {
+                headers: {
+                    'Authorization': `Bearer ${authHeader()}`
+                }
+            })
             .then((response) => {
                 setClientTypes(response.data);
             });
 
         axios
-            .get(BASE_USERS_URL)
+            .get(BASE_USERS_URL, {
+                headers: {
+                    'Authorization': `Bearer ${authHeader()}`
+                }
+            })
             .then((response) => {
                 setUsers(response.data);
             })
 
         if (clientId != null) {
             axios
-                .get(`${BASE_CLIENTS_URL}/${clientId}`)
+                .get(`${BASE_CLIENTS_URL}/${clientId}`, {
+                    headers: {
+                        'Authorization': `Bearer ${authHeader()}`
+                    }
+                })
                 .then((response) => {
                     formik.setFieldValue("userId", response.data.user._id);
                     formik.setFieldValue("name", response.data.name);

@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { BASE_CLIENTS_URL, BASE_CLIENT_TYPES_URL, CLIENT_TYPE_ID_FILTER, CUIT_CUIL_FILTER, DOCUMENT_FILTER, objectsToUrlParamsString } from '../../../Commons';
+import { BASE_CLIENTS_URL, BASE_CLIENT_TYPES_URL, CLIENT_TYPE_ID_FILTER, CUIT_CUIL_FILTER, DOCUMENT_FILTER, authHeader, objectsToUrlParamsString } from '../../../Commons';
 import { Fragment, useEffect, useState } from 'react';
 
 import Box from '@mui/material/Box';
@@ -37,10 +37,13 @@ function ClientsSearchBox() {
     };
 
     useEffect(() => {
-        axios(BASE_CLIENT_TYPES_URL)
-            .then((response) => {
-                setClientTypes(response.data);
-            })
+        axios(BASE_CLIENT_TYPES_URL, {
+            headers: {
+                'Authorization': `Bearer ${authHeader()}`
+            }
+        }).then((response) => {
+            setClientTypes(response.data);
+        })
     }, []);
 
     useEffect(() => {
@@ -71,10 +74,13 @@ function ClientsSearchBox() {
     }
 
     const searchClients = (filters) => {
-        axios(`${BASE_CLIENTS_URL}?${filters}`)
-            .then((response) => {
-                setClients(response.data);
-            })
+        axios(`${BASE_CLIENTS_URL}?${filters}`, {
+            headers: {
+                'Authorization': `Bearer ${authHeader()}`
+            }
+        }).then((response) => {
+            setClients(response.data);
+        })
     }
 
     const handleFormClean = () => {
@@ -85,10 +91,7 @@ function ClientsSearchBox() {
     }
 
     useEffect(() => {
-        axios(BASE_CLIENTS_URL)
-            .then((response) => {
-                setClients(response.data);
-            })
+        searchClients('');
     }, []);
 
     return (

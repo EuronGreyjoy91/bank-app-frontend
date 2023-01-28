@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { BASE_USERS_URL, BASE_USER_TYPES_URL, USERNAME_FILTER, USER_TYPE_ID_FILTER, objectsToUrlParamsString } from '../../../Commons';
+import { BASE_USERS_URL, BASE_USER_TYPES_URL, USERNAME_FILTER, USER_TYPE_ID_FILTER, authHeader, objectsToUrlParamsString } from '../../../Commons';
 import { Fragment, useEffect, useState } from 'react';
 
 import Box from '@mui/material/Box';
@@ -32,10 +32,13 @@ function UsersSearchBox() {
     };
 
     useEffect(() => {
-        axios(BASE_USER_TYPES_URL)
-            .then((response) => {
-                setUserTypes(response.data);
-            })
+        axios(BASE_USER_TYPES_URL, {
+            headers: {
+                'Authorization': `Bearer ${authHeader()}`
+            }
+        }).then((response) => {
+            setUserTypes(response.data);
+        })
     }, []);
 
     useEffect(() => {
@@ -62,10 +65,13 @@ function UsersSearchBox() {
     }
 
     const searchUsers = (filters) => {
-        axios(`${BASE_USERS_URL}?${filters}`)
-            .then((response) => {
-                setUsers(response.data);
-            })
+        axios(`${BASE_USERS_URL}?${filters}`, {
+            headers: {
+                'Authorization': `Bearer ${authHeader()}`
+            }
+        }).then((response) => {
+            setUsers(response.data);
+        })
     }
 
     const handleFormClean = () => {
@@ -75,10 +81,7 @@ function UsersSearchBox() {
     }
 
     useEffect(() => {
-        axios(BASE_USERS_URL)
-            .then((response) => {
-                setUsers(response.data);
-            })
+        searchUsers('');
     }, []);
 
     return (

@@ -1,6 +1,6 @@
 import * as yup from 'yup';
 
-import { BASE_ACCOUNTS_URL, BASE_ACCOUNT_TYPES_URL, BASE_CLIENTS_URL, CAJA_AHORRO_ACCOUNT_TYPE_CODE, CUENTA_CORRIENTE_ACCOUNT_TYPE_CODE, REPEATED_ACCOUNT_TYPE_ERROR, REPEATED_ALIAS_ERROR, VALIDATION_ERROR } from '../../../Commons';
+import { BASE_ACCOUNTS_URL, BASE_ACCOUNT_TYPES_URL, BASE_CLIENTS_URL, CAJA_AHORRO_ACCOUNT_TYPE_CODE, CUENTA_CORRIENTE_ACCOUNT_TYPE_CODE, REPEATED_ACCOUNT_TYPE_ERROR, REPEATED_ALIAS_ERROR, VALIDATION_ERROR, authHeader } from '../../../Commons';
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -65,7 +65,11 @@ function AccountForm() {
 
             if (accountId == null) {
                 axios
-                    .post(BASE_ACCOUNTS_URL, values)
+                    .post(BASE_ACCOUNTS_URL, values, {
+                        headers: {
+                            'Authorization': `Bearer ${authHeader()}`
+                        }
+                    })
                     .then((response) => {
                         navigate('/cuentas?alertStatus=success&message=Cuenta guardada con exito', { replace: true });
                     }).catch(error => {
@@ -74,7 +78,11 @@ function AccountForm() {
             }
             else {
                 axios
-                    .patch(`${BASE_ACCOUNTS_URL}/${accountId}`, values)
+                    .patch(`${BASE_ACCOUNTS_URL}/${accountId}`, values, {
+                        headers: {
+                            'Authorization': `Bearer ${authHeader()}`
+                        }
+                    })
                     .then((response) => {
                         navigate('/cuentas?alertStatus=success&message=Cuenta guardada con exito', { replace: true });
                     }).catch(error => {
@@ -97,13 +105,21 @@ function AccountForm() {
 
     useEffect(() => {
         axios
-            .get(BASE_CLIENTS_URL)
+            .get(BASE_CLIENTS_URL, {
+                headers: {
+                    'Authorization': `Bearer ${authHeader()}`
+                }
+            })
             .then((response) => {
                 setClients(response.data);
             })
 
         axios
-            .get(BASE_ACCOUNT_TYPES_URL)
+            .get(BASE_ACCOUNT_TYPES_URL, {
+                headers: {
+                    'Authorization': `Bearer ${authHeader()}`
+                }
+            })
             .then((response) => {
                 setAccountTypes(response.data);
                 formik.values.offLimitAmount = response.data.find((accountType) => accountType.code === CUENTA_CORRIENTE_ACCOUNT_TYPE_CODE).offLimitAmount;
@@ -111,7 +127,11 @@ function AccountForm() {
 
         if (accountId != null) {
             axios
-                .get(`${BASE_ACCOUNTS_URL}/${accountId}`)
+                .get(`${BASE_ACCOUNTS_URL}/${accountId}`, {
+                    headers: {
+                        'Authorization': `Bearer ${authHeader()}`
+                    }
+                })
                 .then((response) => {
                     formik.setFieldValue("clientId", response.data.client._id);
                     formik.setFieldValue("accountTypeCode", response.data.accountType.code);
