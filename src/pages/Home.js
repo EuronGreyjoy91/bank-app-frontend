@@ -1,6 +1,6 @@
 import * as yup from 'yup';
 
-import { BASE_USERS_URL, NOT_FOUND_ERROR, VALIDATION_ERROR } from '../Commons';
+import { BASE_USERS_URL, NOT_FOUND_ERROR, VALIDATION_ERROR, authHeader } from '../Commons';
 import React, { useRef } from 'react';
 import { useNavigate, useSearchParams } from "react-router-dom";
 
@@ -52,8 +52,11 @@ const Home = () => {
         validationSchema: validationSchema,
         onSubmit: (values) => {
             axios
-                .post(`${BASE_USERS_URL}/login`, values)
-                .then((response) => {
+                .post(`${BASE_USERS_URL}/login`, values, {
+                    headers: {
+                        'Authorization': `Bearer ${authHeader()}`
+                    }
+                }).then((response) => {
                     localStorage.setItem('token', response.data.token);
                     localStorage.setItem('isLogged', true);
                     localStorage.setItem('user', JSON.stringify(response.data.user));
@@ -84,7 +87,7 @@ const Home = () => {
         <Fragment>
             <LoginNavbar></LoginNavbar>
             {
-                searchParams.get('alertStatus') && <AlertWithTimer severity={searchParams.get('alertStatus')} message={searchParams.get('alertStatus')}></AlertWithTimer>
+                searchParams.get('alertStatus') && <AlertWithTimer severity={searchParams.get('alertStatus')} message={searchParams.get('message')}></AlertWithTimer>
             }
             <Container>
                 <Grid container spacing={2} alignItems="center">

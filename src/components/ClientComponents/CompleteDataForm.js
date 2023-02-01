@@ -1,6 +1,6 @@
 import * as yup from 'yup';
 
-import { BASE_CLIENTS_URL, BASE_CLIENT_TYPES_URL, PERSONA_JURIDICA_CLIENT_TYPE_CODE, REPEATED_DOCUMENT_ERROR, VALIDATION_ERROR } from '../../Commons';
+import { BASE_CLIENTS_URL, BASE_CLIENT_TYPES_URL, REPEATED_DOCUMENT_ERROR, VALIDATION_ERROR, authHeader } from '../../Commons';
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -85,7 +85,11 @@ function CompleteDataForm() {
             values.userId = userId;
 
             axios
-                .post(BASE_CLIENTS_URL, values)
+                .post(BASE_CLIENTS_URL, values, {
+                    headers: {
+                        'Authorization': `Bearer ${authHeader()}`
+                    }
+                })
                 .then((response) => {
                     logout();
                     navigate('/?alertStatus=success&message=Datos actualizados con exito. Vuelva a ingresar', { replace: true });
@@ -106,7 +110,11 @@ function CompleteDataForm() {
 
     useEffect(() => {
         axios
-            .get(BASE_CLIENT_TYPES_URL)
+            .get(BASE_CLIENT_TYPES_URL, {
+                headers: {
+                    'Authorization': `Bearer ${authHeader()}`
+                }
+            })
             .then((response) => {
                 setClientTypes(response.data);
             })

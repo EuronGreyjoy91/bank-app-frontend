@@ -101,8 +101,14 @@ function MyMovementForm() {
             })
             .then((response) => {
                 setAccounts(response.data);
+                if(response.data.length === 0)
+                    showErrorDialog("Necesitas abrir una cuenta primero");
             })
     }, []);
+
+    const goBack = () => {
+		navigate(`/${user.clientId}/movimientos`);
+	}
 
     return (
         <form onSubmit={formik.handleSubmit}>
@@ -165,6 +171,9 @@ function MyMovementForm() {
                     />
                 </FormControl>
             </Stack>
+            <Button style={{ marginTop: "20px", marginRight: "5px" }} color="secondary" variant="contained" onClick={goBack}>
+                Cancelar
+            </Button>
             <Button style={{ marginTop: "20px" }} color="primary" variant="contained" type="submit">
                 Guardar
             </Button>

@@ -111,8 +111,11 @@ function UserForm() {
 
                 if (userId != null) {
                     axios
-                        .get(`${BASE_USERS_URL}/${userId}`)
-                        .then((response) => {
+                        .get(`${BASE_USERS_URL}/${userId}`,  {
+                            headers: {
+                                'Authorization': `Bearer ${authHeader()}`
+                            }
+                        }).then((response) => {
                             formik.setFieldValue("userName", response.data.userName);
                             formik.setFieldValue("password", response.data.password);
                             formik.setFieldValue("repassword", response.data.password);
@@ -121,6 +124,10 @@ function UserForm() {
                 }
             })
     }, []);
+
+    const goBack = () => {
+		navigate(`/usuarios`);
+	}
 
     return (
         <form onSubmit={formik.handleSubmit}>
@@ -186,6 +193,9 @@ function UserForm() {
                     />
                 </FormControl>
             </Stack>
+            <Button style={{ marginTop: "20px", marginRight: "5px" }} color="secondary" variant="contained" onClick={goBack}>
+                Cancelar
+            </Button>
             <Button style={{ marginTop: "20px" }} color="primary" variant="contained" type="submit">
                 Guardar
             </Button>

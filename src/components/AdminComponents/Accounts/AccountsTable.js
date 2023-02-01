@@ -1,6 +1,7 @@
 import * as React from 'react';
 
-import { BASE_ACCOUNTS_URL } from '../../../Commons';
+import { BASE_ACCOUNTS_URL, authHeader } from '../../../Commons';
+
 import Box from '@mui/material/Box';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import { DataGrid } from '@mui/x-data-grid';
@@ -15,8 +16,11 @@ import moment from 'moment';
 
 const patchAccount = (account) => {
     axios
-        .patch(`${BASE_ACCOUNTS_URL}/${account.accountId}`, account)
-        .then((response) => {
+        .patch(`${BASE_ACCOUNTS_URL}/${account.accountId}`, account, {
+            headers: {
+                'Authorization': `Bearer ${authHeader()}`
+            }
+        }).then((response) => {
             if (response.status === 200) {
                 window.location.replace("/cuentas?alertStatus=success&message=Cuenta modificada con exito");
             }

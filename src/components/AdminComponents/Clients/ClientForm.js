@@ -168,6 +168,10 @@ function ClientForm() {
         }
     }, []);
 
+    const goBack = () => {
+		navigate(`/clientes`);
+	}
+
     return (
         <form onSubmit={formik.handleSubmit}>
             <Stack spacing={2}>
@@ -292,6 +296,9 @@ function ClientForm() {
                     />
                 </FormControl>
             </Stack>
+            <Button style={{ marginTop: "20px", marginRight: "5px" }} color="secondary" variant="contained" onClick={goBack}>
+                Cancelar
+            </Button>
             <Button style={{ marginTop: "20px" }} color="primary" variant="contained" type="submit">
                 Guardar
             </Button>

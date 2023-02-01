@@ -1,6 +1,7 @@
 import * as React from 'react';
 
-import { BASE_CLIENTS_URL } from '../../../Commons';
+import { BASE_CLIENTS_URL, authHeader } from '../../../Commons';
+
 import Box from '@mui/material/Box';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import { DataGrid } from '@mui/x-data-grid';
@@ -13,10 +14,14 @@ import Tooltip from '@mui/material/Tooltip';
 import axios from 'axios';
 import moment from 'moment';
 
-const patchClient = (account) => {
+const patchClient = (client) => {
+    console.log(client)
     axios
-        .patch(`${BASE_CLIENTS_URL}/${account.accountId}`, account)
-        .then((response) => {
+        .patch(`${BASE_CLIENTS_URL}/${client.clientId}`, client, {
+            headers: {
+                'Authorization': `Bearer ${authHeader()}`
+            }
+        }).then((response) => {
             if (response.status === 200) {
                 window.location.replace("/clientes?alertStatus=success&message=Cliente modificado con exito");
             }
@@ -31,7 +36,7 @@ const renderActionsButton = (params) => {
                     variant="contained"
                     color={params.row.enable ? "error" : "success"}
                     onClick={() => {
-                        patchClient({ accountId: params.row._id, enable: !params.row.enable });
+                        patchClient({ clientId: params.row._id, enable: !params.row.enable });
                     }}
                 >
                     {params.row.enable ? <DisabledByDefaultIcon /> : <CheckBoxIcon />}

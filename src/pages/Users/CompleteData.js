@@ -1,10 +1,10 @@
 import React, { Fragment, useEffect } from 'react';
 import { useNavigate, useParams } from "react-router-dom";
 
-import AdminNavbar from '../../components/AdminComponents/AdminNavbar';
 import CompleteDataForm from '../../components/ClientComponents/CompleteDataForm';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
+import LoginNavbar from '../../components/Commons/LoginNavbar';
 import { Typography } from '@mui/material';
 import { userIsLogged } from '../../Commons';
 
@@ -19,7 +19,7 @@ const CompleteData = () => {
     
     return (
         <Fragment>
-            <AdminNavbar></AdminNavbar>
+            <LoginNavbar></LoginNavbar>
             <Container maxWidth={false}>
                 <Grid container spacing={2} alignItems="center">
                     <Grid style={{ paddingTop: "40px" }} item xs={8}>

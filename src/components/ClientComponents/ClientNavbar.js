@@ -43,8 +43,6 @@ function ClientNavbar() {
                     <Typography
                         variant="h6"
                         noWrap
-                        component="a"
-                        href="/"
                         sx={{
                             mr: 2,
                             display: { xs: 'none', md: 'flex' },
@@ -91,7 +89,7 @@ function ClientNavbar() {
                                 <Typography textAlign="center">Mis cuentas</Typography>
                             </MenuItem>
                             <MenuItem component="a" href={`/${user.clientId}/movimientos`} key={'Movimientos'} onClick={handleCloseNavMenu}>
-                                <Typography textAlign="center">Movimientos</Typography>
+                                <Typography textAlign="center">Mis movimientos</Typography>
                             </MenuItem>
                             <MenuItem key={'Logout'} onClick={handleLogout}>
                                 <Typography textAlign="center">Logout</Typography>
@@ -133,7 +131,7 @@ function ClientNavbar() {
                             onClick={handleCloseNavMenu}
                             sx={{ my: 2, color: 'white', display: 'block' }}
                         >
-                            Movimientos&nbsp;
+                            Mis movimientos&nbsp;
                             <TimelineOutlinedIcon style={{ verticalAlign: "middle" }}></TimelineOutlinedIcon>
                         </Button>
                         <Button
