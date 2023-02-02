@@ -28,19 +28,24 @@ const patchAccount = (user) => {
 }
 
 const renderActionsButton = (params) => {
+    const user = JSON.parse(localStorage.getItem('user'));
+
     return (
         <Fragment>
-            <Tooltip title={params.row.enable ? "Desactivar" : "Activar"}>
-                <IconButton
-                    variant="contained"
-                    color={params.row.enable ? "error" : "success"}
-                    onClick={() => {
-                        patchAccount({ userId: params.row._id, enable: !params.row.enable });
-                    }}
-                >
-                    {params.row.enable ? <DisabledByDefaultIcon /> : <CheckBoxIcon />}
-                </IconButton>
-            </Tooltip>
+            {
+                user.id != params.row._id &&
+                <Tooltip title={params.row.enable ? "Desactivar" : "Activar"}>
+                    <IconButton
+                        variant="contained"
+                        color={params.row.enable ? "error" : "success"}
+                        onClick={() => {
+                            patchAccount({ userId: params.row._id, enable: !params.row.enable });
+                        }}
+                    >
+                        {params.row.enable ? <DisabledByDefaultIcon /> : <CheckBoxIcon />}
+                    </IconButton>
+                </Tooltip>
+            }
             <Tooltip title="Editar">
                 <IconButton
                     variant="contained"
