@@ -90,7 +90,7 @@ function MyTransferForm() {
 
     useEffect(() => {
         axios
-            .get(`${BASE_CLIENTS_URL}/${user.clientId}/accounts`, {
+            .get(`${BASE_CLIENTS_URL}/${user.clientId}/accounts?enable=true`, {
                 headers: {
                     'Authorization': `Bearer ${authHeader()}`
                 }
