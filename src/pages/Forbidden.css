@@ -1,0 +1,9 @@
+.center-div-forbidden {
+    background-color: #d21957;
+    color: white;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}

@@ -1,70 +1,62 @@
-# Getting Started with Create React App
+# Bank App FRONTEND
+**Frontend del proyecto - TP Final programacion 3 - 2023**
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**Profesor**: Gaston Larriera  
 
-## Available Scripts
+## Descripcion del repositorio 📖
 
-In the project directory, you can run:
+* **Components**: Contiene los componentes utilizados para armar la web, esta dividido para los componentes que se usan en la parte del administrador y la del cliente.
+* **Pages**: Contiene los "esqueletos" de las paginas disponibles, estas usan a los componentes.
 
-### `npm start`
+El modulo consiste en ser el front de la aplicacion del banco, el cual esta dividido en dos secciones, la parte del **admistrador** (con todo lo relacionado al manejo de cuentas, clientes y usuarios), y la parte del **cliente** (el cual puede ver sus cuentas y sus movimientos, como tambien realizar transferencias y extracciones/depositos).
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Para la comunicacion con el backend se utiliza la herramienta **axios**, y para la validacion de formularios se utilizo **formik** junto con **yup**.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Dependencias 🛠️
+```
+axios
+formik
+moment
+react
+react-dom
+react-router-dom
+react-scripts
+web-vitals
+yup
+yup-es
+```
 
-### `npm test`
+## Como instalarlo 🔨
+Para levantar el modulo, es necesario situarse en la carpeta donde se lo descargo y ejecutar los siguientes comandos:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
+npm install
+```
 
-### `npm run build`
+```
+npm start
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Si todo sale bien, el modulo se levanta en http://localhost:3000, para poder loguearse, se puede utilizar alguno de los usuarios precargados:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```
+ADMIN
+    usuario: admin
+    password: 12345
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+CLIENTE 1
+    usuario: cliente
+    password: 12345
+    Alias: ASUNTO.CIENTIFICA.CUANTO
 
-### `npm run eject`
+CLIENTE 2
+    usuario: cliente2
+    password: 12345
+    Alias: NORTEAMERICANO.RECORDAR.VIEJO
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Autor ✒️
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+**Federico Ignacio Ibarra Berardi** - 
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+**Email**: federicoibarrab@gmail.com

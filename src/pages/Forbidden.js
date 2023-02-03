@@ -1,17 +1,17 @@
-import './PageNotFound.css';
+import './Forbidden.css';
 
 import React from 'react';
 import { Typography } from '@mui/material';
 
-const PageNotFound = () => (
-    <div className='center-div'>
+const Forbidden = () => (
+    <div className='center-div-forbidden'>
         <Typography variant="h1">
-            404
+            403
         </Typography>
         <Typography variant="h2">
-            P&aacute;gina no encontrada
+            Acceso invalido
         </Typography>
     </div>
 )
 
-export default PageNotFound;
+export default Forbidden;
