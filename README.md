@@ -3,7 +3,7 @@
 
 **Profesor**: Gaston Larriera  
 
-## Descripcion del repositorio
+## Descripcion del repositorio 📖
 
 * **Components**: Contiene los componentes utilizados para armar la web, esta dividido para los componentes que se usan en la parte del administrador y la del cliente.
 * **Pages**: Contiene los "esqueletos" de las paginas disponibles, estas usan a los componentes.
@@ -26,7 +26,7 @@ yup
 yup-es
 ```
 
-## Como instalarlo
+## Como instalarlo 🔨
 Para levantar el modulo, es necesario situarse en la carpeta donde se lo descargo y ejecutar los siguientes comandos:
 
 ```
@@ -55,7 +55,7 @@ CLIENTE 2
     Alias: NORTEAMERICANO.RECORDAR.VIEJO
 ```
 
-## Autor
+## Autor ✒️
 
 **Federico Ignacio Ibarra Berardi** - 
 
